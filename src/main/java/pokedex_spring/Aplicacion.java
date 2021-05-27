@@ -1,7 +1,8 @@
 package pokedex_spring;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
@@ -15,17 +16,15 @@ import java.util.InputMismatchException;
 import java.lang.IndexOutOfBoundsException;
 
 @Data
+@Component
 public class Aplicacion {
-	@Autowired
-	private Validador validador;
-	@Autowired
 	private List<Pokemon> pokemons;
-	private Map<Pokemon, ArrayList<Evolucion>> pokemonsYEvoluciones = new HashMap<Pokemon, ArrayList<Evolucion>>();
+	private Map<Pokemon, ArrayList<Evolucion>> pokemonsYEvoluciones = new HashMap<>();
 	private Scanner sc = new Scanner(System.in);
 
 	/* Constructor */
 	public Aplicacion() {
-		this.pokemons = new ArrayList<Pokemon>();
+		this.pokemons = new ArrayList<>();
 	}
 	
 	public String mostrarPokemon() {
@@ -60,8 +59,8 @@ public class Aplicacion {
 			
 			try {
 				nombrePokemon = this.insertarNombre();
-				
-				validador.validarPokemon(this, nombrePokemon);
+
+				Validador.validarPokemon(this, nombrePokemon);
 				pokemonExistente = false;
 			}
 			catch(PokemonYaExisteExcepcion e) {
@@ -73,8 +72,8 @@ public class Aplicacion {
 		nivelPokemon = this.insertarNivel();
 		
 		Pokemon pokemon = new Pokemon(nombrePokemon, nivelPokemon);
-		
-		pokemon.setTipos(this.insertarTiposYHabilidades(pokemon.getHabilidades()));
+
+		insertarTiposYHabilidades(pokemon, tiposAEditar, habilidadesAEditar);
 		
 		this.agregarEvolucionesAMap(pokemon);
 		
@@ -108,12 +107,12 @@ public class Aplicacion {
 	
 	public void edicionDatosPokemon(Pokemon pokemon) {
 		Boolean modificandoPokemon = true;
-		Boolean condicionPokemon = false;
+		Boolean condicionPokemon;
 		
 		do {
 			try {
 				while (modificandoPokemon) {
-					System.out.println(" �Que dato del pokemon desea modificar? (Ingrese: Nivel/TiposYHabilidades/Evoluciones) \n Si no desea modificar ning�n dato ingrese 'Salir':");
+					System.out.println(" Que dato del pokemon desea modificar? (Ingrese: Nivel/TiposYHabilidades/Evoluciones) \n Si no desea modificar ningun dato ingrese 'Salir':");
 					String opcion = sc.next();
 					switch (opcion) {
 					
@@ -139,7 +138,7 @@ public class Aplicacion {
 				condicionPokemon = false;
 			}
 			catch (PokemonNoEvolucionadoExcepcion e) {
-				System.out.println("El pokemon " + pokemon.getNombre() + " a�n no evolucion� \n El pokemon debe haber evolucionado antes para que se pueda eliminar una evoluci�n");
+				System.out.println("El pokemon " + pokemon.getNombre() + " aún no evolucionó \n El pokemon debe haber evolucionado antes para que se pueda eliminar una evolución");
 				condicionPokemon = true;
 			}
 		} while(condicionPokemon);
@@ -148,18 +147,19 @@ public class Aplicacion {
 	public void edicionTiposYHabilidadesPokemon(Pokemon pokemon) {
 		String opcion;
 		Boolean editandoEvolucion = true;
+
 		while (editandoEvolucion) {
 			System.out.println("Si desea agregar un tipo ingrese 'A' \n Si desea eliminar algun tipo ingrese 'E' \n Si desea salir ingrese 'Salir'");
 			opcion = sc.next();
 			switch (opcion) {
 			
 				case "A":
-					pokemon.setTipos(this.insertarTiposYHabilidades(pokemon.getHabilidades()));
+					insertarTiposYHabilidades(pokemon);
 					System.out.println("SE HAN AGREGADO LOS TIPOS Y LAS HABILIDADES");
 					break;
 					
 				case "E":
-					this.eliminarTiposYHabilidades(pokemon.getTipos(), pokemon.getHabilidades());
+					eliminarTiposYHabilidades(pokemon);
 					System.out.println("SE HAN ELIMINADO LOS TIPOS Y LAS HABILIDADES");
 					break;
 					
@@ -169,73 +169,7 @@ public class Aplicacion {
 			}
 		}		
 	}
-	
-	
-	public void eliminarTiposYHabilidades(List<Tipo> tipos, List<Habilidad> habilidades) {
-		Integer opcion = 1;
-		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
-		Tipo tipo = null;
-		Habilidad habilidad = null;
-		System.out.println("*Mensaje: Recuerde que al eliminar un tipo, tambien esta eliminando la habilidad que corresponde a ese tipo*");
-		while(opcion == 1) {
-			try {
-				System.out.println("Tipo:");
-				String tipoStr = sc.next();
-				validador.validarTipos(tipoStr, tiposValidos);
-				switch(tipoStr) {
-					   
-					case "fuego":
-						tipos.remove(tipo.Fuego);
-						habilidades.remove(habilidad.AbsorveFuego);
-						habilidades.remove(habilidad.MarLlamas);
-						break;
-					
-					case "agua":
-						tipos.remove(tipo.Agua);
-						habilidades.remove(habilidad.AbsorveAgua);
-						habilidades.remove(habilidad.BurbujaBubble);
-						break;
-						
-					case "planta":
-						tipos.remove(tipo.Planta);
-						habilidades.remove(habilidad.AbsorveRayosSol);
-						habilidades.remove(habilidad.DefensaHoja);
-						break;
-				     
-					case "roca":
-						tipos.remove(tipo.Roca);
-						habilidades.remove(habilidad.ChorroDeArena);
-						habilidades.remove(habilidad.RocaAfilada);
-						break;
-						
-					case "volador":
-						tipos.remove(tipo.Volador);
-						habilidades.remove(habilidad.RemolinoWhirlwind);
-						habilidades.remove(habilidad.TornadoGust);
-						break;
-						
-					case "hielo":
-						tipos.remove(tipo.Hielo);
-						habilidades.remove(habilidad.VientoHielo);
-						habilidades.remove(habilidad.CantoHelado);
-						break;
-					
-					case "acero":
-						tipos.remove(tipo.Acero);
-						habilidades.remove(habilidad.AlaDeAcero);
-						habilidades.remove(habilidad.BombaIman);
-						break;
-				}
-			}
-			catch(TipoNoValidoExcepcion e) {
-				System.out.println("el tipo ingresado es invalido");
-			}
-			
-			System.out.println("Si desea eliminar otro tipo presione 1, sino presione 2:");
-			opcion = sc.nextInt();
-		}
-	}
-	
+
 	
 	public void eliminarPokemon() {
 		Boolean pokemonNoExiste;
@@ -278,7 +212,7 @@ public class Aplicacion {
 				pokemon = this.buscarPokemon(nombre);
 				pokemonNoExiste = false;
 				
-				validador.validarPokemonEvolucionado(pokemon);
+				Validador.validarPokemonEvolucionado(pokemon);
 				pokemonNoEvoluciona = false;
 				
 				this.evolucionDePokemon(pokemon);
@@ -296,7 +230,7 @@ public class Aplicacion {
 	
 	
 	public void eliminarEvolucion(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {
-		validador.validarPokemonNoEvolucionado(pokemon);
+		Validador.validarPokemonNoEvolucionado(pokemon);
 		if (pokemon.getEvoluciones().size() == 2) {
 			pokemon.getEvoluciones().remove(1);
 		}
@@ -339,14 +273,13 @@ public class Aplicacion {
 		
 		return nivel;
 	} 
+
 	
-	
-	public List<Tipo> insertarTiposYHabilidades(List<Habilidad> habilidades){
-		List<Tipo> tipos = new ArrayList<Tipo>();
-		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
+	public List<Tipo> insertarTiposYHabilidades(Pokemon pokemon){
 		Integer opcion = 1;
-		Tipo tipo = null;
-		Habilidad habilidad = null;
+		List<Tipo> tiposAEditar = new ArrayList<>();
+		List<Habilidad> habilidadesAEditar = new ArrayList<>();
+		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
 		System.out.println("*Mensaje: Recuerde que al agregar un tipo, tambien esta agregando la habilidad que corresponde a ese tipo*");
 		
 		while(opcion == 1) {
@@ -354,51 +287,10 @@ public class Aplicacion {
 				System.out.println("Los tipos existentes son: 'fuego', 'agua', 'planta', 'roca', 'volador', 'hielo', 'acero' (Debe ingresarlos tal cual estan escritos aqui)");
 				System.out.println("Tipo:");
 				String tipoStr = sc.next();
-				validador.validarTipos(tipoStr, tiposValidos);
-				switch(tipoStr) {
-					   
-					case "fuego":
-						tipos.add(tipo.Fuego);
-						habilidades.add(habilidad.AbsorveFuego);
-						habilidades.add(habilidad.MarLlamas);
-						break;
-					
-					case "agua":
-						tipos.add(tipo.Agua);
-						habilidades.add(habilidad.AbsorveAgua);
-						habilidades.add(habilidad.BurbujaBubble);
-						break;
-						
-					case "planta":
-						tipos.add(tipo.Planta);
-						habilidades.add(habilidad.AbsorveRayosSol);
-						habilidades.add(habilidad.DefensaHoja);
-						break;
-				     
-					case "roca":
-						tipos.add(tipo.Roca);
-						habilidades.add(habilidad.ChorroDeArena);
-						habilidades.add(habilidad.RocaAfilada);
-						break;
-						
-					case "volador":
-						tipos.add(tipo.Volador);
-						habilidades.add(habilidad.RemolinoWhirlwind);
-						habilidades.add(habilidad.TornadoGust);
-						break;
-						
-					case "hielo":
-						tipos.add(tipo.Hielo);
-						habilidades.add(habilidad.VientoHielo);
-						habilidades.add(habilidad.CantoHelado);
-						break;
-					
-					case "acero":
-						tipos.add(tipo.Acero);
-						habilidades.add(habilidad.AlaDeAcero);
-						habilidades.add(habilidad.BombaIman);
-						break;
-				}
+				Validador.validarTipos(tipoStr, tiposValidos);
+				tiposYHabilidadesIngresados (tipoStr, tipos, habilidades);
+				pokemon.getTipos().removeAll(tipos);
+				pokemon.getHabilidades().removeAll(habilidades);
 			}
 			catch(TipoNoValidoExcepcion e) {
 				System.out.println("el tipo ingresado es invalido");
@@ -410,7 +302,81 @@ public class Aplicacion {
 		return tipos;
 	}
 
-	
+	public void eliminarTiposYHabilidades(Pokemon pokemon) {
+		Integer opcion = 1;
+		Tipo tipoAEditar = null;
+		List<Habilidad> habilidadesAEditar = new ArrayList<>();
+		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
+		System.out.println("*Mensaje: Recuerde que al eliminar un tipo, tambien esta eliminando la habilidad que corresponde a ese tipo*");
+
+		while (opcion == 1) {
+			try {
+				System.out.println("Tipo:");
+				String tipoStr = sc.next();
+				Validador.validarTipos(tipoStr, tiposValidos);
+				tipoYHabilidadesIngresados (tipoStr, tipoAEditar, habilidadesAEditar);
+				pokemon.getTipos().remove(tipoAEditar);
+				pokemon.getHabilidades().removeAll(habilidadesAEditar);
+			}
+
+			catch(TipoNoValidoExcepcion e) {
+				System.out.println("el tipo ingresado es invalido");
+			}
+
+			System.out.println("Si desea eliminar otro tipo presione 1, sino presione 2:");
+			opcion = sc.nextInt();
+		}
+	}
+
+	public void tipoYHabilidadesIngresados (String tipoStr, Tipo tipo, List<Habilidad> habilidades) {
+		switch(tipoStr) {
+
+			case "fuego":
+				tipo = Tipo.Fuego;
+				habilidades.add(Habilidad.AbsorveFuego);
+				habilidades.add(Habilidad.MarLlamas);
+				break;
+
+			case "agua":
+				tipo = Tipo.Agua;
+				habilidades.add(Habilidad.AbsorveAgua);
+				habilidades.add(Habilidad.BurbujaBubble);
+				break;
+
+			case "planta":
+				tipo = Tipo.Planta;
+				habilidades.add(Habilidad.AbsorveRayosSol);
+				habilidades.add(Habilidad.DefensaHoja);
+				break;
+
+			case "roca":
+				tipo = Tipo.Roca;
+				habilidades.add(Habilidad.ChorroDeArena);
+				habilidades.add(Habilidad.RocaAfilada);
+				break;
+
+			case "volador":
+				tipo = Tipo.Volador;
+				habilidades.add(Habilidad.RemolinoWhirlwind);
+				habilidades.add(Habilidad.TornadoGust);
+				break;
+
+			case "hielo":
+				tipo = Tipo.Hielo;
+				habilidades.add(Habilidad.VientoHielo);
+				habilidades.add(Habilidad.CantoHelado);
+				break;
+
+			case "acero":
+				tipo = Tipo.Acero;
+				habilidades.add(Habilidad.AlaDeAcero);
+				habilidades.add(Habilidad.BombaIman);
+				break;
+		}
+	}
+
+
+
 	public Evolucion insertarEvolucion() {
 		String nombreEvolucion = this.insertarNombre();
 		Integer nivelEvolucion = this.insertarNivel();
@@ -483,7 +449,7 @@ public class Aplicacion {
 	public void agregarEvolucionesAMap(Pokemon pokemon) {
 		ArrayList<Evolucion> evoluciones = new ArrayList<Evolucion>();
 		if (!this.existePokemonConEvoluciones(pokemon.getNombre())) {
-			System.out.println("Est� agregando un pokemon nuevo, a continuacion agregue sus respectivas evoluciones:");
+			System.out.println("Está agregando un pokemon nuevo, a continuacion agregue sus respectivas evoluciones:");
 			System.out.println("primerEvolucion:");
 			evoluciones.add(this.insertarEvolucion());
 			System.out.println("SegundaEvolucion:");
@@ -524,7 +490,7 @@ public class Aplicacion {
 	}*/
 	
 	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
-		List<Evolucion> evoluciones = new ArrayList<Evolucion>();
+		List<Evolucion> evoluciones = new ArrayList<>();
 		for (Map.Entry<Pokemon, ArrayList<Evolucion>> entry : this.getPokemonsYEvoluciones().entrySet()) {
 			if(entry.getKey().getNombre().equals(pokemon.getNombre())) {
 				evoluciones.addAll(entry.getValue());
@@ -534,7 +500,7 @@ public class Aplicacion {
 	}
 	
 	public List<Evolucion> asignacionDeTipos(List<Evolucion> evoluciones, Pokemon pokemon){
-		List<Evolucion> evolucionesConTipos = new ArrayList<Evolucion>();
+		List<Evolucion> evolucionesConTipos = new ArrayList<>();
 		for (Evolucion e: evoluciones) { 
 			e.setTipos(pokemon.getTipos());
 			e.setHabilidades(pokemon.getHabilidades());

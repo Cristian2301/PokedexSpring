@@ -19,15 +19,16 @@ public class Pokemon {
 		//this.id = id;
 		this.nombre = nombre;
 		this.nivel = nivel;
+		this.tipos = new ArrayList<Tipo>();
 		this.habilidades = new ArrayList<Habilidad>();
 		this.evoluciones = new ArrayList<Evolucion>();
 	}
 
 	public void agregarTipo(Tipo tipo) {
-	/*agrega el tipo "tipo" a la lista de tipos.*/
+		/*agrega el tipo "tipo" a la lista de tipos.*/
 		this.tipos.add(tipo);
 	}
-	
+
 //	public void eliminarTipo(String tipo) {
 	/*elimina el tipo "tipo" de la lista de tipos.*/
 //		this.tipos.remove(tipo);

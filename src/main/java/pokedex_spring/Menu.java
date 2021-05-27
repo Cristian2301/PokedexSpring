@@ -1,19 +1,13 @@
 package pokedex_spring;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Menu {
-	@Autowired
-	public static Aplicacion aplicacion;
-	@Autowired
-	public static Validador validador;
+	public static Aplicacion aplicacion = new Aplicacion();
 	
 	public static void main(String[] args) {
 		Pokemon pokemon1 = new Pokemon("Charmander", 2);
@@ -60,7 +54,7 @@ public class Menu {
 		
 				
 		while(true) {
-			Scanner sc = new Scanner(System.in);    // TODO:NO ENCONTRE OTRA MEJOR FORMA PARA QUE NO ME QUEDE LOOPENADO POR SIEMPRE EL sc.nextInt()
+			Scanner sc = new Scanner(System.in);    // TODO: NO ENCONTRE OTRA MEJOR FORMA PARA QUE NO ME QUEDE LOOPENADO POR SIEMPRE EL sc.nextInt()
 			
 			System.out.println("Ingrese la opcion 1 para mostrar un pokemon");
 	        System.out.println("Ingrese la opcion 2 para agregar un pokemon Nuevo");
@@ -74,15 +68,12 @@ public class Menu {
 	        
 	        try {
 	        	opcion = sc.nextInt();
-	        	validador.validarOpciones(opcionesValidas, opcion);
+	        	Validador.validarOpciones(opcionesValidas, opcion);
 	        }
-	        catch(InputMismatchException e) {
+	        catch(InputMismatchException | OpcionNoValidaExcepcion e) {
 	        	System.out.println("no es una opcion valida");
 	        }
-	        catch(OpcionNoValidaExcepcion e) {
-	        	System.out.println("no es una opcion valida");
-	        }
-	        opciones(opcion);
+			opciones(opcion);
 		}
     }
 	
