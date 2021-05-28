@@ -53,6 +53,8 @@ public class Aplicacion {
 		String nombrePokemon = "";
 		Boolean pokemonExistente;
 		Integer nivelPokemon = 0;
+		List<Tipo> tiposAAgregar = new ArrayList<>();
+		List<Habilidad> habilidadesAAgregar = new ArrayList<>();
 		
 		do {
 			System.out.println("Ingrese los datos del pokemon que desea agregar:");
@@ -73,7 +75,10 @@ public class Aplicacion {
 		
 		Pokemon pokemon = new Pokemon(nombrePokemon, nivelPokemon);
 
-		insertarTiposYHabilidades(pokemon, tiposAEditar, habilidadesAEditar);
+		tiposYHabilidadesAAgregar(tiposAAgregar, habilidadesAAgregar);
+		pokemon.getTipos().addAll(tiposAAgregar);
+		pokemon.getHabilidades().addAll(habilidadesAAgregar);
+	//	insertarTipoYHabilidades(pokemon, tipoAEditar, habilidadesAEditar);
 		
 		this.agregarEvolucionesAMap(pokemon);
 		
@@ -123,7 +128,6 @@ public class Aplicacion {
 							
 						case "TiposYHabilidades":	
 							this.edicionTiposYHabilidadesPokemon(pokemon);
-				//			pokemon.getTipos().removeAll(pokemon.getTipos());
 							break;
 							
 						case "Evoluciones":
@@ -147,6 +151,10 @@ public class Aplicacion {
 	public void edicionTiposYHabilidadesPokemon(Pokemon pokemon) {
 		String opcion;
 		Boolean editandoEvolucion = true;
+		List<Tipo> tiposAAgregar = new ArrayList<>();
+		List<Habilidad> habilidadesAAgregar = new ArrayList<>();
+		List<Tipo> tiposAEliminar = new ArrayList<>();
+		List<Habilidad> habilidadesAEliminar = new ArrayList<>();
 
 		while (editandoEvolucion) {
 			System.out.println("Si desea agregar un tipo ingrese 'A' \n Si desea eliminar algun tipo ingrese 'E' \n Si desea salir ingrese 'Salir'");
@@ -154,12 +162,16 @@ public class Aplicacion {
 			switch (opcion) {
 			
 				case "A":
-					insertarTiposYHabilidades(pokemon);
+					tiposYHabilidadesAAgregar(tiposAAgregar, habilidadesAAgregar);
+					pokemon.getTipos().addAll(tiposAAgregar);
+					pokemon.getHabilidades().addAll(habilidadesAAgregar);
 					System.out.println("SE HAN AGREGADO LOS TIPOS Y LAS HABILIDADES");
 					break;
 					
 				case "E":
-					eliminarTiposYHabilidades(pokemon);
+					tiposYHabilidadesAEliminar(tiposAEliminar, habilidadesAEliminar);
+					pokemon.getTipos().removeAll(tiposAEliminar);
+					pokemon.getHabilidades().removeAll(habilidadesAEliminar);
 					System.out.println("SE HAN ELIMINADO LOS TIPOS Y LAS HABILIDADES");
 					break;
 					
@@ -272,13 +284,11 @@ public class Aplicacion {
 		} while(nivelNoEsNumerico);
 		
 		return nivel;
-	} 
+	}
 
 	
-	public List<Tipo> insertarTiposYHabilidades(Pokemon pokemon){
+	public void tiposYHabilidadesAAgregar(List<Tipo> tipos, List<Habilidad> habilidades){
 		Integer opcion = 1;
-		List<Tipo> tiposAEditar = new ArrayList<>();
-		List<Habilidad> habilidadesAEditar = new ArrayList<>();
 		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
 		System.out.println("*Mensaje: Recuerde que al agregar un tipo, tambien esta agregando la habilidad que corresponde a ese tipo*");
 		
@@ -289,8 +299,6 @@ public class Aplicacion {
 				String tipoStr = sc.next();
 				Validador.validarTipos(tipoStr, tiposValidos);
 				tiposYHabilidadesIngresados (tipoStr, tipos, habilidades);
-				pokemon.getTipos().removeAll(tipos);
-				pokemon.getHabilidades().removeAll(habilidades);
 			}
 			catch(TipoNoValidoExcepcion e) {
 				System.out.println("el tipo ingresado es invalido");
@@ -299,13 +307,10 @@ public class Aplicacion {
 			System.out.println("Si desea agregar otro tipo presione 1, sino presione 2:");
 			opcion = sc.nextInt();
 		}
-		return tipos;
 	}
 
-	public void eliminarTiposYHabilidades(Pokemon pokemon) {
+	public void tiposYHabilidadesAEliminar(List<Tipo> tipos, List<Habilidad> habilidades) {
 		Integer opcion = 1;
-		Tipo tipoAEditar = null;
-		List<Habilidad> habilidadesAEditar = new ArrayList<>();
 		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
 		System.out.println("*Mensaje: Recuerde que al eliminar un tipo, tambien esta eliminando la habilidad que corresponde a ese tipo*");
 
@@ -314,9 +319,7 @@ public class Aplicacion {
 				System.out.println("Tipo:");
 				String tipoStr = sc.next();
 				Validador.validarTipos(tipoStr, tiposValidos);
-				tipoYHabilidadesIngresados (tipoStr, tipoAEditar, habilidadesAEditar);
-				pokemon.getTipos().remove(tipoAEditar);
-				pokemon.getHabilidades().removeAll(habilidadesAEditar);
+				tiposYHabilidadesIngresados (tipoStr, tipos, habilidades);
 			}
 
 			catch(TipoNoValidoExcepcion e) {
@@ -328,47 +331,47 @@ public class Aplicacion {
 		}
 	}
 
-	public void tipoYHabilidadesIngresados (String tipoStr, Tipo tipo, List<Habilidad> habilidades) {
+	public void tiposYHabilidadesIngresados (String tipoStr, List<Tipo> tipos, List<Habilidad> habilidades) {
 		switch(tipoStr) {
 
 			case "fuego":
-				tipo = Tipo.Fuego;
+				tipos.add(Tipo.Fuego);
 				habilidades.add(Habilidad.AbsorveFuego);
 				habilidades.add(Habilidad.MarLlamas);
 				break;
 
 			case "agua":
-				tipo = Tipo.Agua;
+				tipos.add(Tipo.Agua);
 				habilidades.add(Habilidad.AbsorveAgua);
 				habilidades.add(Habilidad.BurbujaBubble);
 				break;
 
 			case "planta":
-				tipo = Tipo.Planta;
+				tipos.add(Tipo.Planta);
 				habilidades.add(Habilidad.AbsorveRayosSol);
 				habilidades.add(Habilidad.DefensaHoja);
 				break;
 
 			case "roca":
-				tipo = Tipo.Roca;
+				tipos.add(Tipo.Roca);
 				habilidades.add(Habilidad.ChorroDeArena);
 				habilidades.add(Habilidad.RocaAfilada);
 				break;
 
 			case "volador":
-				tipo = Tipo.Volador;
+				tipos.add(Tipo.Volador);
 				habilidades.add(Habilidad.RemolinoWhirlwind);
 				habilidades.add(Habilidad.TornadoGust);
 				break;
 
 			case "hielo":
-				tipo = Tipo.Hielo;
+				tipos.add(Tipo.Hielo);
 				habilidades.add(Habilidad.VientoHielo);
 				habilidades.add(Habilidad.CantoHelado);
 				break;
 
 			case "acero":
-				tipo = Tipo.Acero;
+				tipos.add(Tipo.Acero);
 				habilidades.add(Habilidad.AlaDeAcero);
 				habilidades.add(Habilidad.BombaIman);
 				break;
