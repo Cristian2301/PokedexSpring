@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+       xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Datos del Pokemon</title>
+</head>
+<body>
+    <h1>Datos del Pokemon</h1>
+    <a th:href="@{/}">Regresar</a>
+    <br/>
+    <form th:action="@{/guardar}" method="post" th:object="${pokemon}">
+        <input type="hidden" name="id" th:field="*{id}"/>
+        <br/>
+        <label>Nombre:</label>
+        <input type="text" name="nombre" th:field="*{nombre}"/>
+        <br/>
+        <label>Tipos:</label>
+        <input type="text" name="tipos" th:field="*{tipos}"/>
+        <br/>
+        <label>Nivel:</label>
+        <input type="text" name="nivel" th:field="*{nivel}"/>
+        <br/>
+        <label>Habilidades:</label>
+        <input type="text" name="habilidades" th:field="*{habilidades}"/>
+        <br/>
+        <!--
+        <label>Evoluciones:</label>
+        <input type="text" name="evoluciones" th:field="*{evoluciones}"/>
+        <br/>-->
+        <input type="submit" name="guardar" value="Guardar"/>
+    </form>
+</body>
+</html>

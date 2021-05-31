@@ -1,4 +1,10 @@
-package pokedex_spring;
+package pokedex;
+
+
+import domain.Evolucion;
+import domain.Pokemon;
+import excepciones.OpcionNoValidaExcepcion;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,9 +12,14 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+@Data
 public class Menu {
 	public static Aplicacion aplicacion = new Aplicacion();
-	
+
+	public Aplicacion getAplicacion(){
+		return aplicacion;
+	}
+
 	public static void main(String[] args) {
 		Pokemon pokemon1 = new Pokemon("Charmander", 2);
 		Pokemon pokemon2 = new Pokemon("Squirtle", 1);
@@ -80,22 +91,22 @@ public class Menu {
 	public static void opciones(Integer opcion) {
 		switch (opcion) {
 			case 1: 
-				System.out.println(aplicacion.mostrarPokemon());
+		//		System.out.println(aplicacion.mostrarPokemon());
 				System.out.println("MOSTRANDO POKEMON");
 				break;
 				
 			case 2: 
-				aplicacion.agregarPokemon();
+//				aplicacion.agregarPokemon();
 				System.out.println("POKEMON AGREGADO");
 				break;
-				
+
 			case 3:
-				aplicacion.modificarPokemon();
+	//			aplicacion.modificarPokemon();
 				System.out.println("POKEMON MODIFICADO");
 				break;
 				
 			case 4: 
-				aplicacion.eliminarPokemon();
+	//			aplicacion.eliminarPokemon();
 				System.out.println("POKEMON ELIMINADO");
 				break;	
 					
@@ -105,7 +116,7 @@ public class Menu {
 				break;
 			
 			case 6: 
-				aplicacion.evolucionarPokemon();
+		//		aplicacion.evolucionarPokemon();
 				System.out.println("SE EVOLUCIONÓ EL POKEMON");
 				break;	
 				

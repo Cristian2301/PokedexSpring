@@ -1,5 +1,13 @@
-package pokedex_spring;
+package pokedex;
 
+import domain.Evolucion;
+import domain.Habilidad;
+import domain.Pokemon;
+import domain.Tipo;
+import excepciones.PokemonNoEvolucionaMasExcepcion;
+import excepciones.PokemonNoEvolucionadoExcepcion;
+import excepciones.PokemonYaExisteExcepcion;
+import excepciones.TipoNoValidoExcepcion;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +35,7 @@ public class Aplicacion {
 		this.pokemons = new ArrayList<>();
 	}
 	
-	public String mostrarPokemon() {
+/*	public String mostrarPokemon() {
 		Boolean pokemonEsValido;
 		String datosPokemon = "";
 		
@@ -46,10 +54,14 @@ public class Aplicacion {
 		} while(pokemonEsValido);
 		
 		return datosPokemon;
+	}*/
+
+	public void agregarPokemon(Pokemon pokemon) {
+		getPokemons().add(pokemon);
 	}
+
 	
-	
-	public void agregarPokemon() {	
+/*	public void agregarPokemon() {
 		String nombrePokemon = "";
 		Boolean pokemonExistente;
 		Integer nivelPokemon = 0;
@@ -84,10 +96,10 @@ public class Aplicacion {
 		
 		this.getPokemons().add(pokemon);
 		
-	}
-	
+	}*/
+
 		
-	public void modificarPokemon() {
+/*	public void modificarPokemon() {
 		Pokemon pokemon = null;
 		Boolean pokemonNoExiste;
 		Boolean modificandoPokemon = true;
@@ -108,7 +120,7 @@ public class Aplicacion {
 		
 		this.edicionDatosPokemon(pokemon);
 		
-	}
+	}*/
 	
 	public void edicionDatosPokemon(Pokemon pokemon) {
 		Boolean modificandoPokemon = true;
@@ -182,13 +194,17 @@ public class Aplicacion {
 		}		
 	}
 
-	
-	public void eliminarPokemon() {
+	public void eliminarPokemon(Pokemon pokemon) {
+		getPokemons().remove(pokemon);
+	}
+
+
+/*	public void eliminarPokemon() {
 		Boolean pokemonNoExiste;
 		do {
 			System.out.println("Ingrese el nombre del pokemon que desea eliminar:");
 			String nombre = sc.next();
-			
+
 			try {
 				this.getPokemons().remove(this.buscarPokemon(nombre));
 				pokemonNoExiste = false;
@@ -198,9 +214,9 @@ public class Aplicacion {
 				pokemonNoExiste = true;
 			}
 		} while(pokemonNoExiste);
-	}
-	
-	
+	}*/
+
+
 	public String listarPokemons() {
 		StringBuilder strPokemons = new StringBuilder();
 		for (Pokemon p: this.getPokemons()) {
@@ -212,7 +228,7 @@ public class Aplicacion {
 	
 	//TODO: HACER QUE LA EXCEPTION DE QUE NO PUEDE EVOLUCIONAR MAS, CUANDO HAGA EL ROLLBACK ME TIRE PARA LA LISTA DE OPCIONES
 	//DEL MENU 
-	public void evolucionarPokemon() {
+/*	public void evolucionarPokemon() {
 		Boolean pokemonNoExiste = false;
 		Boolean pokemonNoEvoluciona = false;
 		do { 
@@ -238,7 +254,7 @@ public class Aplicacion {
 				pokemonNoEvoluciona = true;
 			}
 		} while(pokemonNoExiste || pokemonNoEvoluciona);
-	}
+	}*/
 	
 	
 	public void eliminarEvolucion(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {
@@ -407,15 +423,23 @@ public class Aplicacion {
 			existePokemon = existePokemon || p.getNombre().equals(nombre);
 		}
 		return existePokemon;
-	}	
+	}
 
-	public Pokemon buscarPokemon(String nombre) {
+	public Pokemon buscarPokemon(Pokemon pokemon) {
+		Integer i = 0;
+		while(!(this.pokemons.get(i).getId().equals(pokemon.getId()))) {
+			i++;
+		}
+		return pokemons.get(i);
+	}
+
+	/*public Pokemon buscarPokemon(String nombre) {
 		Integer i = 0;
 		while(!(this.pokemons.get(i).getNombre().equals(nombre))) {
 			i++;
 		}
 		return pokemons.get(i);
-	}
+	}*/
 	
 	
 	public void edicionEvoluciones(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {

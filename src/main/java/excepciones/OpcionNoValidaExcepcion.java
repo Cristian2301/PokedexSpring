@@ -1,4 +1,4 @@
-package pokedex_spring;
+package excepciones;
 
 public class OpcionNoValidaExcepcion extends Exception{
 

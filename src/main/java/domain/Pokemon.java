@@ -1,27 +1,41 @@
-package pokedex_spring;
+package domain;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 @Data
-public class Pokemon {
+@Component
+public class Pokemon implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nombre;
 	private List<Tipo> tipos;
 	private Integer nivel;
 	private List<Habilidad> habilidades;
 	private List<Evolucion> evoluciones;
 
+	public Pokemon(){
+
+	}
+
 	/*Constructor*/
 	public Pokemon(String nombre, Integer nivel) {
 		//this.id = id;
 		this.nombre = nombre;
 		this.nivel = nivel;
-		this.tipos = new ArrayList<Tipo>();
-		this.habilidades = new ArrayList<Habilidad>();
-		this.evoluciones = new ArrayList<Evolucion>();
+		this.tipos = new ArrayList<>();
+		this.habilidades = new ArrayList<>();
+		this.evoluciones = new ArrayList<>();
 	}
 
 	public void agregarTipo(Tipo tipo) {

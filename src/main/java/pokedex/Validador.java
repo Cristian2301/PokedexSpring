@@ -1,6 +1,7 @@
-package pokedex_spring;
+package pokedex;
 
-import org.springframework.stereotype.Component;
+import domain.Pokemon;
+import excepciones.*;
 
 import java.util.List;
 

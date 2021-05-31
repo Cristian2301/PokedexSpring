@@ -1,4 +1,4 @@
-package pokedex_spring;
+package domain;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package pokedex_spring;
+package excepciones;
 
 public class PokemonYaExisteExcepcion extends Exception {
 	
