@@ -2,35 +2,30 @@ package domain;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 @Data
 @Component
-public class Pokemon implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Pokemon {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+//	private Integer id;
 	private String nombre;
 	private List<Tipo> tipos;
 	private Integer nivel;
 	private List<Habilidad> habilidades;
 	private List<Evolucion> evoluciones;
 
-	public Pokemon(){
-
+	public Pokemon() {
+		//this.id = id++;
 	}
 
 	/*Constructor*/
 	public Pokemon(String nombre, Integer nivel) {
-		//this.id = id;
+	//	this.id = id++;
 		this.nombre = nombre;
 		this.nivel = nivel;
 		this.tipos = new ArrayList<>();

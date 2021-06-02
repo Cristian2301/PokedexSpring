@@ -21,11 +21,11 @@ public class Menu {
 	}
 
 	public static void main(String[] args) {
-		Pokemon pokemon1 = new Pokemon("Charmander", 2);
+/*		Pokemon pokemon1 = new Pokemon("Charmander", 2);
 		Pokemon pokemon2 = new Pokemon("Squirtle", 1);
 		Pokemon pokemon3 = new Pokemon("Bulbasaur", 4);
 		Pokemon pokemon4 = new Pokemon("Chikorita", 6);
-		Pokemon pokemon5 = new Pokemon("Cyndaquil", 5);
+		Pokemon pokemon5 = new Pokemon("Cyndaquil", 5);*/
 		/*Pokemon pokemon6 = new Pokemon("Totodile", 2);
 		Pokemon pokemon8 = new Pokemon("Treecko", 2);
 		Pokemon pokemon9 = new Pokemon("Torchic", 2);
@@ -46,10 +46,10 @@ public class Menu {
 		evolucionesChar.add(evolucion2Charmander);
 		evolucionesChik.add(evolucion1Chikorita);
 		evolucionesChik.add(evolucion2Chikorita);
-		
+/*
 		aplicacion.getPokemonsYEvoluciones().put(pokemon1, evolucionesChar);
 		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);
-		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);
+		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);*/
 		
 /*		aplicacion.getPokemonsYEvoluciones().put(pokemon1, (ArrayList<Evolucion>) Arrays.asList(evolucion1Charmander, evolucion2Charmander));
 		aplicacion.getPokemonsYEvoluciones().put(pokemon2, (ArrayList<Evolucion>) Arrays.asList(evolucion1Squirtle, evolucion2Squirtle));

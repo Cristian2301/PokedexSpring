@@ -1,7 +1,6 @@
 package pokedex;
 
 import domain.Pokemon;
-import domain.Tipo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import java.util.List;
 @Slf4j
 public class Controlador {
 
-    Pokemon pokemon = new Pokemon();
     Aplicacion aplicacion = new Aplicacion();
 
     @GetMapping("/")
@@ -53,14 +51,14 @@ public class Controlador {
         return "redirect:/";
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/editar/{nombre}")
     public String editar(Pokemon pokemon, Model model){
         pokemon = aplicacion.buscarPokemon(pokemon);
         model.addAttribute("pokemon", pokemon);
         return "modificar";
     }
 
-    @GetMapping("/eliminar/{id}")
+    @GetMapping("/eliminar/{nombre}")
     public String eliminar(Pokemon pokemon){
         aplicacion.eliminarPokemon(pokemon);
         return "redirect:/";

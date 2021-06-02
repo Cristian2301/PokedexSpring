@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Pokedex</title>
@@ -9,24 +10,24 @@
     <a th:href="@{/agregar}">Crear Pokemon</a>
     <br/>
     <div th:if="${pokemons != null and !pokemons.empty}">
-    <table border="1">
-        <tr>
-            <th>Nombre</th>
-            <th>tipos</th>
-            <th>Nivel</th>
-            <th>Habilidades</th>
-            <th>Evoluciones</th>
-        </tr>
-        <tr th:each="pokemon : ${pokemons}">
-            <td th:text="${pokemon.nombre}">Nombre</td>
-            <td th:text="${pokemon.tipos}">Tipos</td>
-            <td th:text="${pokemon.nivel}">Nivel</td>
-            <td th:text="${pokemon.habilidades}">Habilidades</td>
-            <td th:text="${pokemon.evoluciones}">Evoluciones</td>
-            <td> <a th:href="@{/editar/} + ${pokemon.id}" th:text="Editar"/></td>
-            <td> <a th:href="@{/eliminar/} + ${pokemon.id}" th:text="Eliminar"/></td>
-        </tr>
-    </table>
+        <table border="1">
+            <tr>
+                <th>Nombre</th>
+                <th>tipos</th>
+                <th>Nivel</th>
+                <th>Habilidades</th>
+                <th>Evoluciones</th>
+            </tr>
+            <tr th:each="pokemon : ${pokemons}">
+                <td th:text="${pokemon.nombre}">Nombre</td>
+                <td th:text="${pokemon.tipos}">Tipos</td>
+                <td th:text="${pokemon.nivel}">Nivel</td>
+                <td th:text="${pokemon.habilidades}">Habilidades</td>
+                <td th:text="${pokemon.evoluciones}">Evoluciones</td>
+                <td><a th:href="@{/editar/} + ${pokemon.nombre}" th:text="Editar"></a></td>
+                <td><a th:href="@{/eliminar/} + ${pokemon.nombre}" th:text="Eliminar"></a></td>
+            </tr>
+        </table>
     </div>
     <div th:if="${pokemons == null or pokemons.empty}">
         <p>lista de pokemons vacia</p>

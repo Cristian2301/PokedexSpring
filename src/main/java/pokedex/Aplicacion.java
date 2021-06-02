@@ -427,7 +427,7 @@ public class Aplicacion {
 
 	public Pokemon buscarPokemon(Pokemon pokemon) {
 		Integer i = 0;
-		while(!(this.pokemons.get(i).getId().equals(pokemon.getId()))) {
+		while(!(this.pokemons.get(i).getNombre().equals(pokemon.getNombre()))) {
 			i++;
 		}
 		return pokemons.get(i);
