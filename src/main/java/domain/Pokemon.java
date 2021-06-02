@@ -1,22 +1,29 @@
 package domain;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import java.util.UUID;
-import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 @Data
 @Component
 public class Pokemon {
 
 	private String id;
+
+	@NotEmpty
 	private String nombre;
+
 	private List<Tipo> tipos;
+
+	@Positive
 	private Integer nivel;
+
 	private List<Habilidad> habilidades;
 	private List<Evolucion> evoluciones;
 

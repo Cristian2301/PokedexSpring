@@ -13,20 +13,22 @@
         <br/>
         <label>Nombre:</label>
         <input type="text" name="nombre" th:field="*{nombre}"/>
+        <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
         <br/>
         <label>Tipos:</label>
         <input type="text" name="tipos" th:field="*{tipos}"/>
         <br/>
         <label>Nivel:</label>
         <input type="text" name="nivel" th:field="*{nivel}"/>
-        <br/>
-        <label>Habilidades:</label>
-        <input type="text" name="habilidades" th:field="*{habilidades}"/>
-        <br/>
-        <!--
-        <label>Evoluciones:</label>
-        <input type="text" name="evoluciones" th:field="*{evoluciones}"/>
-        <br/>-->
+        <span th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}">Error Nivel</span>
+          <br/>
+          <label>Habilidades:</label>
+          <input type="text" name="habilidades" th:field="*{habilidades}"/>
+          <br/>
+          <!--
+          <label>Evoluciones:</label>
+          <input type="text" name="evoluciones" th:field="*{evoluciones}"/>
+          <br/>-->
         <input type="submit" name="guardar" value="Guardar"/>
     </form>
 </body>
