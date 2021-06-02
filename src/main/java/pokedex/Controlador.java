@@ -22,21 +22,6 @@ public class Controlador {
     @GetMapping("/")
     public String inicio(Model model){
         List<Pokemon> pokemons = aplicacion.getPokemons();
-    /*    Tipo tipo = null;
-        Pokemon pokemon1 = new Pokemon("Charmander", 2);
-        pokemon1.agregarTipo(tipo.Fuego);
-        Pokemon pokemon2 = new Pokemon("Chikorita", 3);
-        pokemon2.agregarTipo(tipo.Roca);
-        Pokemon pokemon3 = new Pokemon("Bulbasaur", 4);
-        pokemon3.agregarTipo(tipo.Agua);
-        Pokemon pokemon4 = new Pokemon("Cristian", 2);
-        pokemon4.agregarTipo(tipo.Fuego);
-
-        List<Pokemon> pokemons = new ArrayList<>();
-        pokemons.add(pokemon1);
-        pokemons.add(pokemon2);
-        pokemons.add(pokemon3);
-        pokemons.add(pokemon4);*/
         model.addAttribute("pokemons", pokemons);
         return "index";
     }
@@ -52,14 +37,14 @@ public class Controlador {
         return "redirect:/";
     }
 
-    @GetMapping("/editar/{nombre}")
+    @GetMapping("/editar/{id}")
     public String editar(Pokemon pokemon, Model model){
         pokemon = aplicacion.buscarPokemon(pokemon);
         model.addAttribute("pokemon", pokemon);
         return "modificar";
     }
 
-    @GetMapping("/eliminar/{nombre}")
+    @GetMapping("/eliminar/{id}")
     public String eliminar(Pokemon pokemon){
         aplicacion.eliminarPokemon(pokemon);
         return "redirect:/";

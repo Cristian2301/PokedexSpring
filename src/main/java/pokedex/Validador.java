@@ -11,9 +11,9 @@ public class Validador {
 		if (pokemon.getEvoluciones().size() >= 2) throw new PokemonNoEvolucionaMasExcepcion();
 	}
 	
-	public static void validarPokemon(Aplicacion app, String nombrePokemon) throws PokemonYaExisteExcepcion {
+/*	public static void validarPokemon(Aplicacion app, String nombrePokemon) throws PokemonYaExisteExcepcion {
 		if (app.existePokemon(nombrePokemon)) throw new PokemonYaExisteExcepcion();
-	}
+	}*/
 	
 	
 	public static void validarPokemonNoEvolucionado(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {

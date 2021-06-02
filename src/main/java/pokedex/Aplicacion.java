@@ -34,7 +34,39 @@ public class Aplicacion {
 	public Aplicacion() {
 		this.pokemons = new ArrayList<>();
 	}
-	
+
+	public void agregarPokemon(Pokemon pokemon) {
+		if (existePokemon(pokemon)){
+			eliminarPokemon(pokemon);
+			getPokemons().add(pokemon);
+		}
+		else{
+			getPokemons().add(pokemon);
+		}
+	}
+
+	public void eliminarPokemon(Pokemon pokemon) {
+		getPokemons().remove(buscarPokemon(pokemon));
+	}
+
+	public Boolean existePokemon(Pokemon pokemon) {
+		Boolean existePokemon = false;
+		for (Pokemon p: this.getPokemons()) {
+			existePokemon = existePokemon || p.getId().equals(pokemon.getId());
+		}
+		return existePokemon;
+	}
+
+	public Pokemon buscarPokemon(Pokemon pokemon) {
+		Integer i = 0;
+		while(!(this.pokemons.get(i).getId().equals(pokemon.getId()))) {
+			i++;
+		}
+		return pokemons.get(i);
+	}
+
+
+
 /*	public String mostrarPokemon() {
 		Boolean pokemonEsValido;
 		String datosPokemon = "";
@@ -55,10 +87,6 @@ public class Aplicacion {
 		
 		return datosPokemon;
 	}*/
-
-	public void agregarPokemon(Pokemon pokemon) {
-		getPokemons().add(pokemon);
-	}
 
 	
 /*	public void agregarPokemon() {
@@ -192,10 +220,6 @@ public class Aplicacion {
 					break;
 			}
 		}		
-	}
-
-	public void eliminarPokemon(Pokemon pokemon) {
-		getPokemons().remove(pokemon);
 	}
 
 
@@ -417,21 +441,7 @@ public class Aplicacion {
 		}
 	}
 	
-	public Boolean existePokemon(String nombre) {
-		Boolean existePokemon = false;
-		for (Pokemon p: this.getPokemons()) {
-			existePokemon = existePokemon || p.getNombre().equals(nombre);
-		}
-		return existePokemon;
-	}
 
-	public Pokemon buscarPokemon(Pokemon pokemon) {
-		Integer i = 0;
-		while(!(this.pokemons.get(i).getNombre().equals(pokemon.getNombre()))) {
-			i++;
-		}
-		return pokemons.get(i);
-	}
 
 	/*public Pokemon buscarPokemon(String nombre) {
 		Integer i = 0;

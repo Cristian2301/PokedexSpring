@@ -24,8 +24,8 @@
                 <td th:text="${pokemon.nivel}">Nivel</td>
                 <td th:text="${pokemon.habilidades}">Habilidades</td>
                 <td th:text="${pokemon.evoluciones}">Evoluciones</td>
-                <td><a th:href="@{/editar/} + ${pokemon.nombre}" th:text="Editar"></a></td>
-                <td><a th:href="@{/eliminar/} + ${pokemon.nombre}" th:text="Eliminar"></a></td>
+                <td><a th:href="@{/editar/} + ${pokemon.id}" th:text="Editar"></a></td>
+                <td><a th:href="@{/eliminar/} + ${pokemon.id}" th:text="Eliminar"></a></td>
             </tr>
         </table>
     </div>

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,26 +13,26 @@ import java.util.ArrayList;
 @Component
 public class Pokemon {
 
-	//private Integer id;
+	private String id;
 	private String nombre;
 	private List<Tipo> tipos;
 	private Integer nivel;
 	private List<Habilidad> habilidades;
 	private List<Evolucion> evoluciones;
 
-	/*public Pokemon() {
-		this.id = id++;
-	}*/
+	public Pokemon() {
+		this.id = UUID.randomUUID().toString();
+	}
 
 	/*Constructor*/
-	public Pokemon(String nombre, Integer nivel) {
-	//	this.id = id++;
+/*	public Pokemon(String nombre, Integer nivel) {
+		this.id = id++;
 		this.nombre = nombre;
 		this.nivel = nivel;
 		this.tipos = new ArrayList<>();
 		this.habilidades = new ArrayList<>();
 		this.evoluciones = new ArrayList<>();
-	}
+	}*/
 
 	public void agregarTipo(Tipo tipo) {
 		/*agrega el tipo "tipo" a la lista de tipos.*/

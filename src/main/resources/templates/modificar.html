@@ -9,8 +9,8 @@
     <h1>Datos del Pokemon</h1>
     <a th:href="@{/}">Regresar</a>
     <form th:action="@{/guardar}" method="post" th:object="${pokemon}">
-        <!--<input type="hidden" name="id" th:field="*{id}"/>
-        <br/>-->
+        <input type="hidden" name="id" th:field="*{id}"/>
+        <br/>
         <label>Nombre:</label>
         <input type="text" name="nombre" th:field="*{nombre}"/>
         <br/>
