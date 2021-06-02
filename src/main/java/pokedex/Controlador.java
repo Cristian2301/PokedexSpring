@@ -16,7 +16,8 @@ import java.util.List;
 @Slf4j
 public class Controlador {
 
-    Aplicacion aplicacion = new Aplicacion();
+    @Autowired
+    Aplicacion aplicacion;
 
     @GetMapping("/")
     public String inicio(Model model){

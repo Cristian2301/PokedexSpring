@@ -12,16 +12,16 @@ import java.util.ArrayList;
 @Component
 public class Pokemon {
 
-//	private Integer id;
+	//private Integer id;
 	private String nombre;
 	private List<Tipo> tipos;
 	private Integer nivel;
 	private List<Habilidad> habilidades;
 	private List<Evolucion> evoluciones;
 
-	public Pokemon() {
-		//this.id = id++;
-	}
+	/*public Pokemon() {
+		this.id = id++;
+	}*/
 
 	/*Constructor*/
 	public Pokemon(String nombre, Integer nivel) {
