@@ -16,7 +16,16 @@
         <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
         <br/>
         <label>Tipos:</label>
-        <input type="text" name="tipos" th:field="*{tipos}"/>
+        <select>
+            <option th:value="fuego" th:text="Fuego" th:field="*{tipos}"></option>
+            <option th:value="agua" th:text="Agua"></option>
+            <option th:value="planta" th:text="Planta"></option>
+            <option th:value="roca" th:text="Roca"></option>
+            <option th:value="volador" th:text="Volador"></option>
+            <option th:value="hielo" th:text="Hielo"></option>
+            <option th:value="acero" th:text="Acero"></option>
+        </select>
+        <!--<input type="text" name="tipos" th:field="*{tipos}"/>-->
         <br/>
         <label>Nivel:</label>
         <input type="text" name="nivel" th:field="*{nivel}"/>
@@ -33,3 +42,7 @@
     </form>
 </body>
 </html>
+
+<!--<input th:field="*{nombre}" id="nombre" type="text"
+         class="form-control" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''">
+  <div class="invalid-feedback" th:errors="*{nombre}"></div>-->

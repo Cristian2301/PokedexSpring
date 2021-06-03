@@ -1,8 +1,6 @@
 package pokedex;
 
 
-import domain.Evolucion;
-import domain.Pokemon;
 import excepciones.OpcionNoValidaExcepcion;
 import lombok.Data;
 

@@ -1,12 +1,9 @@
 package pokedex;
 
-import domain.Evolucion;
 import domain.Habilidad;
 import domain.Pokemon;
 import domain.Tipo;
-import excepciones.PokemonNoEvolucionaMasExcepcion;
 import excepciones.PokemonNoEvolucionadoExcepcion;
-import excepciones.PokemonYaExisteExcepcion;
 import excepciones.TipoNoValidoExcepcion;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -21,13 +18,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 import java.util.InputMismatchException;
-import java.lang.IndexOutOfBoundsException;
 
 @Data
 @Component
 public class Aplicacion {
 	private List<Pokemon> pokemons;
-	private Map<Pokemon, ArrayList<Evolucion>> pokemonsYEvoluciones = new HashMap<>();
+//	private Map<Pokemon, ArrayList<Evolucion>> pokemonsYEvoluciones = new HashMap<>();
 	private Scanner sc = new Scanner(System.in);
 
 	/* Constructor */
@@ -419,7 +415,7 @@ public class Aplicacion {
 	}
 
 
-
+/*
 	public Evolucion insertarEvolucion() {
 		String nombreEvolucion = this.insertarNombre();
 		Integer nivelEvolucion = this.insertarNivel();
@@ -439,7 +435,7 @@ public class Aplicacion {
 		else {
 			pokemon.agregarEvolucion(this.evolucionesDePokemon(pokemon).get(1));
 		}
-	}
+	}*/
 	
 
 
@@ -482,7 +478,7 @@ public class Aplicacion {
 		return pokemon.toString();
 	}
 	
-	
+/*
 	public void agregarEvolucionesAMap(Pokemon pokemon) {
 		ArrayList<Evolucion> evoluciones = new ArrayList<Evolucion>();
 		if (!this.existePokemonConEvoluciones(pokemon.getNombre())) {
@@ -514,7 +510,7 @@ public class Aplicacion {
 			i++;
 		}
 		return pokemons.get(i);
-	}
+	}*/
 	
 /*	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
 		List<Evolucion> evoluciones = new ArrayList<Evolucion>();
@@ -526,7 +522,7 @@ public class Aplicacion {
 		return evoluciones;
 	}*/
 	
-	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
+/*	public List<Evolucion> evolucionesDePokemon(Pokemon pokemon) {
 		List<Evolucion> evoluciones = new ArrayList<>();
 		for (Map.Entry<Pokemon, ArrayList<Evolucion>> entry : this.getPokemonsYEvoluciones().entrySet()) {
 			if(entry.getKey().getNombre().equals(pokemon.getNombre())) {
@@ -544,6 +540,6 @@ public class Aplicacion {
 			evolucionesConTipos.add(e);
 		}
 		return evolucionesConTipos;
-	}
+	}*/
 	
 }
