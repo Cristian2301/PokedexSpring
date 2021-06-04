@@ -1,6 +1,8 @@
 package pokedex;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import domain.Pokemon;
+import domain.Tipo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +42,10 @@ public class Controlador {
         if(resultadoBindeado.hasErrors()){
             return "modificar";
         }
+     //   List<Tipo> tipos = pokemon.getTipos();
+    //    model.addAttribute("tipos", tipos);
         aplicacion.agregarPokemon(pokemon);
+        System.out.println(pokemon.getTipos());
         return "redirect:/";
     }
 

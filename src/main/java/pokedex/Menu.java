@@ -28,7 +28,7 @@ public class Menu {
 		Pokemon pokemon8 = new Pokemon("Treecko", 2);
 		Pokemon pokemon9 = new Pokemon("Torchic", 2);
 		Pokemon pokemon10 = new Pokemon("Turtwig", 2);*/
-		Evolucion evolucion1Charmander = new Evolucion("Charmeleon", 16);
+		/*Evolucion evolucion1Charmander = new Evolucion("Charmeleon", 16);
 		Evolucion evolucion2Charmander = new Evolucion("Charizard", 36);
 		Evolucion evolucion1Squirtle = new Evolucion("Wartortle", 16);
 		Evolucion evolucion2Squirtle = new Evolucion("Blastoise", 36);
@@ -43,7 +43,7 @@ public class Menu {
 		evolucionesChar.add(evolucion1Charmander);
 		evolucionesChar.add(evolucion2Charmander);
 		evolucionesChik.add(evolucion1Chikorita);
-		evolucionesChik.add(evolucion2Chikorita);
+		evolucionesChik.add(evolucion2Chikorita);*/
 /*
 		aplicacion.getPokemonsYEvoluciones().put(pokemon1, evolucionesChar);
 		aplicacion.getPokemonsYEvoluciones().put(pokemon4, evolucionesChik);

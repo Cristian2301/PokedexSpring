@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Pokemon {
 
 	@NotEmpty
 	private String nombre;
-	private List<Tipo> tipos;
+	private List<Tipo> tipos = new ArrayList<>();
 
 	@NotNull
 	@Min(1)
@@ -48,8 +49,6 @@ public class Pokemon {
 		}
 		return (datos.toString().equals(""))?"El pokemon aún no ha evolucionado":datos.toString();
 	}
-
-
 
 	//Constructor
 /*	public Pokemon(String nombre, Integer nivel) {

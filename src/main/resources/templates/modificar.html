@@ -15,26 +15,39 @@
         <input type="text" name="nombre" th:field="*{nombre}"/>
         <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
         <br/>
-        <label>Tipos:</label>
-        <select>
-            <option th:value="fuego" th:text="Fuego" th:field="*{tipos}"></option>
-            <option th:value="agua" th:text="Agua"></option>
-            <option th:value="planta" th:text="Planta"></option>
-            <option th:value="roca" th:text="Roca"></option>
-            <option th:value="volador" th:text="Volador"></option>
-            <option th:value="hielo" th:text="Hielo"></option>
-            <option th:value="acero" th:text="Acero"></option>
-        </select>
-        <!--<input type="text" name="tipos" th:field="*{tipos}"/>-->
+        <br/>
+        <label>Tipos:</label> <br/>
+            <input type="checkbox" name="tipos" value="Fuego">Fuego
+            <input type="checkbox" name="tipos" value="Agua">Agua
+            <input type="checkbox" name="tipos" value="Roca">Roca
+            <input type="checkbox" name="tipos" value="Volador">Volador
+            <input type="checkbox" name="tipos" value="Hielo">Hielo
+            <input type="checkbox" name="tipos" value="Acero">Acero
+        <br/>
         <br/>
         <label>Nivel:</label>
         <input type="text" name="nivel" th:field="*{nivel}"/>
         <span th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}">Error Nivel</span>
-          <br/>
-          <label>Habilidades:</label>
-          <input type="text" name="habilidades" th:field="*{habilidades}"/>
-          <br/>
-          <!--
+        <br/>
+        <br/>
+        <label>Habilidades:</label> <br>
+            <input type="checkbox" name="habilidades" value="AbsorveFuego" th:checked="" >AbsorveFuego
+            <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
+            <input type="checkbox" name="habilidades" value="AbsorveAgua">AbsorveAgua
+            <input type="checkbox" name="habilidades" value="BurbujaBubble">BurbujaBubble
+            <input type="checkbox" name="habilidades" value="AbsorveRayosSol">AbsorveRayosSol
+            <input type="checkbox" name="habilidades" value="DefensaHoja">DefensaHoja
+            <input type="checkbox" name="habilidades" value="ChorroDeArena">ChorroDeArena
+            <input type="checkbox" name="habilidades" value="RocaAfilada">RocaAfilada <br/>
+            <input type="checkbox" name="habilidades" value="RemolinoWhirlwind">RemolinoWhirlwind
+            <input type="checkbox" name="habilidades" value="TornadoGust">TornadoGust
+            <input type="checkbox" name="habilidades" value="VientoHielo">VientoHielo
+            <input type="checkbox" name="habilidades" value="CantoHelado">CantoHelado
+            <input type="checkbox" name="habilidades" value="AlaDeAcero">AlaDeAcero
+            <input type="checkbox" name="habilidades" value="BombaIman">BombaIman
+        <br/>
+        <br/>
+            <!--
           <label>Evoluciones:</label>
           <input type="text" name="evoluciones" th:field="*{evoluciones}"/>
           <br/>-->
