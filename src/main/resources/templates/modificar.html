@@ -31,8 +31,14 @@
         <br/>
         <br/>
         <label>Habilidades:</label> <br>
-            <input type="checkbox" name="habilidades" value="AbsorveFuego" th:checked="" >AbsorveFuego
-            <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
+        <div th:if="${pokemon.existeTipo(Fuego)}">
+            <input type="checkbox" name="habilidades" value="AbsorveFuego" checked>AbsorveFuego
+            <input type="checkbox" name="habilidades" value="MarLlamas" checked>MarLlamas
+        </div>
+        <div th:if="${!pokemon.existeTipo(Fuego)}">
+        <input type="checkbox" name="habilidades" value="AbsorveFuego">AbsorveFuego
+        <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
+        </div>
             <input type="checkbox" name="habilidades" value="AbsorveAgua">AbsorveAgua
             <input type="checkbox" name="habilidades" value="BurbujaBubble">BurbujaBubble
             <input type="checkbox" name="habilidades" value="AbsorveRayosSol">AbsorveRayosSol
@@ -47,7 +53,7 @@
             <input type="checkbox" name="habilidades" value="BombaIman">BombaIman
         <br/>
         <br/>
-            <!--
+       <!-- <div th:if="${pokemon.getEvoluciones().isEmpty}">
           <label>Evoluciones:</label>
           <input type="text" name="evoluciones" th:field="*{evoluciones}"/>
           <br/>-->

@@ -24,23 +24,41 @@ public class Pokemon {
 	@Max(100)
 	private Integer nivel;
 	private List<Habilidad> habilidades;
-	private List<Pokemon> evoluciones;
+	private Pokemon evolucion;
 
 	public Pokemon() {
 		this.id = UUID.randomUUID().toString();
 	}
 
+	public Pokemon(String nombre, Integer nivel) {
+		this.id = UUID.randomUUID().toString();
+		this.nombre = nombre;
+		this.nivel = nivel;
+		this.tipos = new ArrayList<>();
+		this.habilidades = new ArrayList<>();
+		this.evolucion = new Pokemon();
+	}
 
 	public void agregarTipo(Tipo tipo) {
 		/*agrega el tipo "tipo" a la lista de tipos.*/
 		this.tipos.add(tipo);
 	}
 
-	public void agregarEvolucion(Pokemon evolucion) {
-	/*agrega la evolucion "evolucion" a la lista de evoluciones.*/
-		this.evoluciones.add(evolucion);
+	public Boolean existeTipo(Tipo tipo){
+		Boolean existe = false;
+		for(Tipo t: getTipos()){
+			existe = existe || t.toString().equals(tipo.toString());
+		}
+		return existe;
 	}
 
+	public void agregarHabilidad(Habilidad habilidad){
+		this.habilidades.add(habilidad);
+	}
+
+
+
+	/*
 	public String listarEvoluciones() {
 		StringBuilder datos = new StringBuilder();
 		for (Pokemon e : this.getEvoluciones()) {
@@ -48,7 +66,7 @@ public class Pokemon {
 			datos.append(e.toString());
 		}
 		return (datos.toString().equals(""))?"El pokemon aún no ha evolucionado":datos.toString();
-	}
+	}*/
 
 	//Constructor
 /*	public Pokemon(String nombre, Integer nivel) {

@@ -1,6 +1,7 @@
 package pokedex;
 
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+import domain.Habilidad;
 import domain.Pokemon;
 import domain.Tipo;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,39 @@ public class Controlador {
     @Autowired
     Aplicacion aplicacion;
 
+
     @GetMapping("/")
     public String inicio(Model model){
+        //Pokemons
+        Pokemon pokemon1 = new Pokemon("Charmander", 0);
+        Pokemon pokemon2 = new Pokemon("Bulbasaur", 0);
+        Pokemon pokemon3 = new Pokemon("Chikorita", 0);
+        Pokemon pokemon4 = new Pokemon("Squirtle", 0);
+        Pokemon pokemon5 = new Pokemon("Cyndaquil", 0);
+
+        //Evoluciones
+        Pokemon EvolucionCharmander = new Pokemon("Charmeleon", 16);
+        Pokemon EvolucionCharmeleon = new Pokemon("Charizard", 36);
+        Pokemon EvolucionBulbasaur = new Pokemon("Venusaur", 16);
+        Pokemon EvolucionVenusaur = new Pokemon("Ivysaur", 36);
+
+        EvolucionCharmander.agregarTipo(Tipo.Fuego);
+        EvolucionCharmeleon.agregarTipo(Tipo.Fuego);
+        EvolucionCharmeleon.agregarTipo(Tipo.Volador);
+        EvolucionCharmander.agregarHabilidad(Habilidad.AbsorveFuego);
+        EvolucionCharmander.agregarHabilidad(Habilidad.MarLlamas);
+        EvolucionCharmeleon.agregarHabilidad(Habilidad.AbsorveFuego);
+        EvolucionCharmeleon.agregarHabilidad(Habilidad.MarLlamas);
+        EvolucionCharmeleon.agregarHabilidad(Habilidad.RemolinoWhirlwind);
+        EvolucionCharmeleon.agregarHabilidad(Habilidad.AlaDeAcero);
+
+        pokemon1.setEvolucion(EvolucionCharmander);
+        EvolucionCharmander.setEvolucion(EvolucionCharmeleon);
+
+        aplicacion.getPokemonsValidos().add(pokemon1);
+        aplicacion.getPokemonsValidos().add(EvolucionCharmander);
+        aplicacion.getPokemonsValidos().add(EvolucionCharmeleon);
+
         List<Pokemon> pokemons = aplicacion.getPokemons();
         model.addAttribute("pokemons", pokemons);
         return "index";
@@ -62,9 +94,11 @@ public class Controlador {
         return "redirect:/";
     }
 
-   /* @GetMapping("/evolucionar/{id}")
+    @GetMapping("/evolucionar/{id}")
     public String evolucionar(Pokemon pokemon){
-        aplicacion.evolucionarPokemon(pokemon);
+        Pokemon evolucion = aplicacion.evolucionarPokemon(pokemon);
+        aplicacion.agregarPokemon(evolucion);
+        aplicacion.eliminarPokemon(pokemon);
         return "redirect:/";
-    }*/
+    }
 }

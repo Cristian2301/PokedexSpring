@@ -1,10 +1,11 @@
 package pokedex;
 
 
-import excepciones.OpcionNoValidaExcepcion;
+import domain.Habilidad;
+import domain.Pokemon;
+import domain.Tipo;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -19,11 +20,32 @@ public class Menu {
 	}
 
 	public static void main(String[] args) {
-/*		Pokemon pokemon1 = new Pokemon("Charmander", 2);
-		Pokemon pokemon2 = new Pokemon("Squirtle", 1);
-		Pokemon pokemon3 = new Pokemon("Bulbasaur", 4);
-		Pokemon pokemon4 = new Pokemon("Chikorita", 6);
-		Pokemon pokemon5 = new Pokemon("Cyndaquil", 5);*/
+		//Pokemons
+		Pokemon pokemon1 = new Pokemon("Charmander", 0);
+		Pokemon pokemon2 = new Pokemon("Bulbasaur", 0);
+		Pokemon pokemon3 = new Pokemon("Chikorita", 0);
+		Pokemon pokemon4 = new Pokemon("Squirtle", 0);
+		Pokemon pokemon5 = new Pokemon("Cyndaquil", 0);
+
+		//Evoluciones
+		Pokemon Evolucion1Charmander = new Pokemon("Charmeleon", 16);
+		Pokemon Evolucion2Charmeleon = new Pokemon("Charizard", 36);
+		Pokemon Evolucion1Bulbasaur = new Pokemon("Venusaur", 16);
+		Pokemon Evolucion2Venusaur = new Pokemon("Ivysaur", 36);
+
+		Evolucion1Charmander.agregarTipo(Tipo.Fuego);
+		Evolucion2Charmeleon.agregarTipo(Tipo.Fuego);
+		Evolucion2Charmeleon.agregarTipo(Tipo.Volador);
+		Evolucion1Charmander.agregarHabilidad(Habilidad.AbsorveFuego);
+		Evolucion1Charmander.agregarHabilidad(Habilidad.MarLlamas);
+		Evolucion2Charmeleon.agregarHabilidad(Habilidad.AbsorveFuego);
+		Evolucion2Charmeleon.agregarHabilidad(Habilidad.MarLlamas);
+		Evolucion2Charmeleon.agregarHabilidad(Habilidad.RemolinoWhirlwind);
+		Evolucion2Charmeleon.agregarHabilidad(Habilidad.AlaDeAcero);
+
+		pokemon1.setEvolucion(Evolucion1Charmander);
+		Evolucion1Charmander.setEvolucion(Evolucion2Charmeleon);
+
 		/*Pokemon pokemon6 = new Pokemon("Totodile", 2);
 		Pokemon pokemon8 = new Pokemon("Treecko", 2);
 		Pokemon pokemon9 = new Pokemon("Torchic", 2);
@@ -74,7 +96,7 @@ public class Menu {
 	        System.out.println("Ingrese la opcion 7 para salir del programa");
 	        System.out.println("Ingrese una opcion:");
         
-	        
+/*
 	        try {
 	        	opcion = sc.nextInt();
 	        	Validador.validarOpciones(opcionesValidas, opcion);
@@ -82,7 +104,7 @@ public class Menu {
 	        catch(InputMismatchException | OpcionNoValidaExcepcion e) {
 	        	System.out.println("no es una opcion valida");
 	        }
-			opciones(opcion);
+			opciones(opcion);*/
 		}
     }
 	

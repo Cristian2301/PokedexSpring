@@ -3,8 +3,6 @@ package pokedex;
 import domain.Habilidad;
 import domain.Pokemon;
 import domain.Tipo;
-import excepciones.PokemonNoEvolucionadoExcepcion;
-import excepciones.TipoNoValidoExcepcion;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
 
 import java.util.InputMismatchException;
 
@@ -23,22 +19,20 @@ import java.util.InputMismatchException;
 @Component
 public class Aplicacion {
 	private List<Pokemon> pokemons;
-//	private Map<Pokemon, ArrayList<Evolucion>> pokemonsYEvoluciones = new HashMap<>();
-	private Scanner sc = new Scanner(System.in);
+	private List<Pokemon> pokemonsValidos;
 
 	/* Constructor */
 	public Aplicacion() {
 		this.pokemons = new ArrayList<>();
+		this.pokemonsValidos = new ArrayList<>();
 	}
 
 	public void agregarPokemon(Pokemon pokemon) {
+		pokemon.setEvolucion(buscarPokemonValido(pokemon).getEvolucion());
 		if (existePokemon(pokemon)){
 			eliminarPokemon(pokemon);
-			getPokemons().add(pokemon);
 		}
-		else{
-			getPokemons().add(pokemon);
-		}
+		getPokemons().add(pokemon);
 	}
 
 	public void eliminarPokemon(Pokemon pokemon) {
@@ -61,6 +55,19 @@ public class Aplicacion {
 		return pokemons.get(i);
 	}
 
+
+	public Pokemon evolucionarPokemon(Pokemon pokemon){
+		return pokemon.getEvolucion();
+	}
+
+	public Pokemon buscarPokemonValido(Pokemon pokemon){
+		Integer i = 0;
+		System.out.println(this.pokemonsValidos);
+		while(!(this.pokemonsValidos.get(i).getNombre().equals(pokemon.getNombre()))) {
+			i++;
+		}
+		return this.pokemonsValidos.get(i);
+	}
 
 
 /*	public String mostrarPokemon() {
@@ -145,7 +152,7 @@ public class Aplicacion {
 		this.edicionDatosPokemon(pokemon);
 		
 	}*/
-	
+/*
 	public void edicionDatosPokemon(Pokemon pokemon) {
 		Boolean modificandoPokemon = true;
 		Boolean condicionPokemon;
@@ -217,7 +224,7 @@ public class Aplicacion {
 			}
 		}		
 	}
-
+*/
 
 /*	public void eliminarPokemon() {
 		Boolean pokemonNoExiste;
@@ -276,7 +283,7 @@ public class Aplicacion {
 		} while(pokemonNoExiste || pokemonNoEvoluciona);
 	}*/
 	
-	
+/*
 	public void eliminarEvolucion(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {
 		Validador.validarPokemonNoEvolucionado(pokemon);
 		if (pokemon.getEvoluciones().size() == 2) {
@@ -285,7 +292,7 @@ public class Aplicacion {
 		else {
 			pokemon.getEvoluciones().remove(0);
 		}
-	}
+	}*/
 	
 	/*	public modificarEvolucion(Pokemon pokemon) {
 	System.out.println("Ingrese el nombre de la evolucion que desea modificar:");
@@ -295,7 +302,7 @@ public class Aplicacion {
 //****************************************************************************//
 	
 	
-		
+/*
 	public String insertarNombre() {
 			System.out.println("Nombre:");
 			String nombre = sc.next();
@@ -321,8 +328,8 @@ public class Aplicacion {
 		
 		return nivel;
 	}
-
-	
+*/
+/*
 	public void tiposYHabilidadesAAgregar(List<Tipo> tipos, List<Habilidad> habilidades){
 		Integer opcion = 1;
 		List<String> tiposValidos = Arrays.asList("fuego", "agua", "planta", "roca", "volador", "hielo", "acero");
@@ -365,7 +372,7 @@ public class Aplicacion {
 			System.out.println("Si desea eliminar otro tipo presione 1, sino presione 2:");
 			opcion = sc.nextInt();
 		}
-	}
+	}*/
 
 	public void tiposYHabilidadesIngresados (String tipoStr, List<Tipo> tipos, List<Habilidad> habilidades) {
 		switch(tipoStr) {
@@ -447,7 +454,7 @@ public class Aplicacion {
 		return pokemons.get(i);
 	}*/
 	
-	
+/*
 	public void edicionEvoluciones(Pokemon pokemon) throws PokemonNoEvolucionadoExcepcion {
 		String opcion;
 		Boolean editandoEvolucion = true;
@@ -471,7 +478,7 @@ public class Aplicacion {
 					break;
 			}
 		}
-	}
+	}*/
 
 	
 	public String datosPokemon(Pokemon pokemon) {
@@ -481,9 +488,9 @@ public class Aplicacion {
 /*
 	public void agregarEvolucionesAMap(Pokemon pokemon) {
 		ArrayList<Evolucion> evoluciones = new ArrayList<Evolucion>();
-		if (!this.existePokemonConEvoluciones(pokemon.getNombre())) {
+		if (!this.(pokemon.getNombre())) {
 			System.out.println("Está agregando un pokemon nuevo, a continuacion agregue sus respectivas evoluciones:");
-			System.out.println("primerEvolucion:");
+			System.out.prexistePokemonConEvolucionesintln("primerEvolucion:");
 			evoluciones.add(this.insertarEvolucion());
 			System.out.println("SegundaEvolucion:");
 			evoluciones.add(this.insertarEvolucion());

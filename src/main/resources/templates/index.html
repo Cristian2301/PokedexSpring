@@ -26,7 +26,7 @@
                 <td th:text="${pokemon.evoluciones}">Evoluciones</td>
                 <td><a th:href="@{/editar/} + ${pokemon.id}" th:text="Editar"></a></td>
                 <td><a th:href="@{/eliminar/} + ${pokemon.id}" th:text="Eliminar"></a></td>
-                <!--<td><a th:href="@{/evolucionar/} + ${pokemon.id}" th:text="Evolucionar"></a></td>-->
+                <td><a th:href="@{/evolucionar/} + ${pokemon.id}" th:text="Evolucionar"></a></td>
             </tr>
         </table>
     </div>
