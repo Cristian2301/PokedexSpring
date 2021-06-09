@@ -26,9 +26,7 @@ public class Controlador {
     @Autowired
     Aplicacion aplicacion;
 
-
-    @GetMapping("/")
-    public String inicio(Model model){
+    public void crearPokemonsValidos(){
         //Pokemons
         Pokemon pokemon1 = new Pokemon("Charmander", 0);
         Pokemon pokemon2 = new Pokemon("Bulbasaur", 0);
@@ -39,8 +37,8 @@ public class Controlador {
         //Evoluciones
         Pokemon EvolucionCharmander = new Pokemon("Charmeleon", 16);
         Pokemon EvolucionCharmeleon = new Pokemon("Charizard", 36);
-        Pokemon EvolucionBulbasaur = new Pokemon("Venusaur", 16);
-        Pokemon EvolucionVenusaur = new Pokemon("Ivysaur", 36);
+        Pokemon EvolucionBulbasaur = new Pokemon("Ivysaur", 16);
+        Pokemon EvolucionIvysaur = new Pokemon("Venusaur", 36);
 
         EvolucionCharmander.agregarTipo(Tipo.Fuego);
         EvolucionCharmeleon.agregarTipo(Tipo.Fuego);
@@ -52,13 +50,38 @@ public class Controlador {
         EvolucionCharmeleon.agregarHabilidad(Habilidad.RemolinoWhirlwind);
         EvolucionCharmeleon.agregarHabilidad(Habilidad.AlaDeAcero);
 
+        EvolucionBulbasaur.agregarTipo(Tipo.Agua);
+        EvolucionIvysaur.agregarTipo(Tipo.Agua);
+        EvolucionIvysaur.agregarTipo(Tipo.Volador);
+        EvolucionBulbasaur.agregarHabilidad(Habilidad.AbsorveAgua);
+        EvolucionBulbasaur.agregarHabilidad(Habilidad.BurbujaBubble);
+        EvolucionIvysaur.agregarHabilidad(Habilidad.AbsorveAgua);
+        EvolucionIvysaur.agregarHabilidad(Habilidad.BurbujaBubble);
+        EvolucionIvysaur.agregarHabilidad(Habilidad.RemolinoWhirlwind);
+        EvolucionIvysaur.agregarHabilidad(Habilidad.AlaDeAcero);
+
         pokemon1.setEvolucion(EvolucionCharmander);
         EvolucionCharmander.setEvolucion(EvolucionCharmeleon);
+        //EvolucionCharmeleon.setEvolucion(null);
+        pokemon2.setEvolucion(EvolucionBulbasaur);
+        EvolucionBulbasaur.setEvolucion(EvolucionIvysaur);
+        //EvolucionIvysaur.setEvolucion(null);
 
+
+        //Se agregan los pokemons a la lista de pokemonsValidos
         aplicacion.getPokemonsValidos().add(pokemon1);
         aplicacion.getPokemonsValidos().add(EvolucionCharmander);
         aplicacion.getPokemonsValidos().add(EvolucionCharmeleon);
+        aplicacion.getPokemonsValidos().add(pokemon2);
+        aplicacion.getPokemonsValidos().add(EvolucionBulbasaur);
+        aplicacion.getPokemonsValidos().add(EvolucionIvysaur);
+    }
 
+    @GetMapping("/")
+    public String inicio(Model model){
+        if (aplicacion.getPokemonsValidos().isEmpty()){
+            crearPokemonsValidos();
+        }
         List<Pokemon> pokemons = aplicacion.getPokemons();
         model.addAttribute("pokemons", pokemons);
         return "index";
@@ -70,14 +93,21 @@ public class Controlador {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid Pokemon pokemon, BindingResult resultadoBindeado){
+    public String guardar(@Valid Pokemon pokemon, BindingResult resultadoBindeado, Model model){
         if(resultadoBindeado.hasErrors()){
             return "modificar";
         }
      //   List<Tipo> tipos = pokemon.getTipos();
     //    model.addAttribute("tipos", tipos);
-        aplicacion.agregarPokemon(pokemon);
-        System.out.println(pokemon.getTipos());
+        try {
+            aplicacion.agregarPokemon(pokemon);
+        }
+        catch(IndexOutOfBoundsException e){
+            String mensaje = "El pokemon ingresado es invalido";
+            model.addAttribute("mensaje", mensaje);
+            return "modificar";
+        }
+      //  System.out.println(pokemon.getTipos());
         return "redirect:/";
     }
 
@@ -95,9 +125,18 @@ public class Controlador {
     }
 
     @GetMapping("/evolucionar/{id}")
-    public String evolucionar(Pokemon pokemon){
-        Pokemon evolucion = aplicacion.evolucionarPokemon(pokemon);
-        aplicacion.agregarPokemon(evolucion);
+    public String evolucionar(Pokemon pokemon, Model model){
+        Pokemon evolucion = aplicacion.evolucionarPokemon(aplicacion.buscarPokemon(pokemon));
+
+        try {
+            aplicacion.agregarPokemon(evolucion);
+        }
+        catch(IndexOutOfBoundsException e){
+            String mensaje1 = "Este pokemon no se puede evolucionar más";
+            model.addAttribute("mensaje1", mensaje1);
+            return "redirect:/";
+        }
+
         aplicacion.eliminarPokemon(pokemon);
         return "redirect:/";
     }

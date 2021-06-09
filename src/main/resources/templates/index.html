@@ -16,22 +16,31 @@
                 <th>Tipos</th>
                 <th>Nivel</th>
                 <th>Habilidades</th>
-                <th>Evoluciones</th>
+                <th>PuedeEvolucionarA</th>
             </tr>
             <tr th:each="pokemon : ${pokemons}">
                 <td th:text="${pokemon.nombre}">Nombre</td>
                 <td th:text="${pokemon.tipos}">Tipos</td>
                 <td th:text="${pokemon.nivel}">Nivel</td>
                 <td th:text="${pokemon.habilidades}">Habilidades</td>
-                <td th:text="${pokemon.evoluciones}">Evoluciones</td>
+                <td th:if="${pokemon.evolucion.getNombre() != null and !pokemon.evolucion.getNombre().empty}"
+                    th:text="${pokemon.evolucion.getNombre()}">
+                    Evolucion
+                </td>
+                <td th:if="${pokemon.evolucion.getNombre() == null or pokemon.evolucion.getNombre().empty}">
+                    --------------------------
+                </td>
+                <td><a th:href="@{/evolucionar/} + ${pokemon.id}" th:text="Evolucionar"></a></td>
                 <td><a th:href="@{/editar/} + ${pokemon.id}" th:text="Editar"></a></td>
                 <td><a th:href="@{/eliminar/} + ${pokemon.id}" th:text="Eliminar"></a></td>
-                <td><a th:href="@{/evolucionar/} + ${pokemon.id}" th:text="Evolucionar"></a></td>
             </tr>
         </table>
+        <br/>
+        <br/>
+        <span th:text="${mensaje1}"></span>
     </div>
     <div th:if="${pokemons == null or pokemons.empty}">
-        <p>lista de pokemons vacia</p>
+        <p>Aún no se ha cargado ningún pokemon</p>
     </div>
 </body>
 </html>

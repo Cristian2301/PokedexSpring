@@ -28,7 +28,9 @@ public class Aplicacion {
 	}
 
 	public void agregarPokemon(Pokemon pokemon) {
-		pokemon.setEvolucion(buscarPokemonValido(pokemon).getEvolucion());
+//		if (getPokemons().isEmpty()){
+			pokemon.setEvolucion(buscarPokemonValido(pokemon).getEvolucion());
+
 		if (existePokemon(pokemon)){
 			eliminarPokemon(pokemon);
 		}
@@ -62,12 +64,18 @@ public class Aplicacion {
 
 	public Pokemon buscarPokemonValido(Pokemon pokemon){
 		Integer i = 0;
-		System.out.println(this.pokemonsValidos);
 		while(!(this.pokemonsValidos.get(i).getNombre().equals(pokemon.getNombre()))) {
 			i++;
 		}
 		return this.pokemonsValidos.get(i);
 	}
+
+
+
+
+
+
+
 
 
 /*	public String mostrarPokemon() {

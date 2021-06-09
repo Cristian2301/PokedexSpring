@@ -7,13 +7,14 @@
 </head>
 <body>
     <h1>Datos del Pokemon</h1>
-    <a th:href="@{/}">Regresar</a>
+    <a th:href="@{/}">Pagina principal</a>
     <form th:action="@{/guardar}" method="post" th:object="${pokemon}">
         <input type="hidden" name="id" th:field="*{id}"/>
         <br/>
         <label>Nombre:</label>
         <input type="text" name="nombre" th:field="*{nombre}"/>
         <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
+        <span th:text="${mensaje}"></span>
         <br/>
         <br/>
         <label>Tipos:</label> <br/>
@@ -31,14 +32,16 @@
         <br/>
         <br/>
         <label>Habilidades:</label> <br>
-        <div th:if="${pokemon.existeTipo(Fuego)}">
+        <!--<div th:if="${pokemon.existeTipo(Fuego)}">
             <input type="checkbox" name="habilidades" value="AbsorveFuego" checked>AbsorveFuego
             <input type="checkbox" name="habilidades" value="MarLlamas" checked>MarLlamas
         </div>
         <div th:if="${!pokemon.existeTipo(Fuego)}">
         <input type="checkbox" name="habilidades" value="AbsorveFuego">AbsorveFuego
         <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
-        </div>
+        </div>-->
+            <input type="checkbox" name="habilidades" value="AbsorveFuego">AbsorveFuego
+            <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
             <input type="checkbox" name="habilidades" value="AbsorveAgua">AbsorveAgua
             <input type="checkbox" name="habilidades" value="BurbujaBubble">BurbujaBubble
             <input type="checkbox" name="habilidades" value="AbsorveRayosSol">AbsorveRayosSol
