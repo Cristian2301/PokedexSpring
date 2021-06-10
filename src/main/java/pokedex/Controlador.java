@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -77,6 +74,7 @@ public class Controlador {
         aplicacion.getPokemonsValidos().add(EvolucionIvysaur);
     }
 
+
     @GetMapping("/")
     public String inicio(Model model){
         if (aplicacion.getPokemonsValidos().isEmpty()){
@@ -93,12 +91,11 @@ public class Controlador {
     }
 
     @PostMapping("/guardar")
+    //@ExceptionHandler
     public String guardar(@Valid Pokemon pokemon, BindingResult resultadoBindeado, Model model){
         if(resultadoBindeado.hasErrors()){
             return "modificar";
         }
-     //   List<Tipo> tipos = pokemon.getTipos();
-    //    model.addAttribute("tipos", tipos);
         try {
             aplicacion.agregarPokemon(pokemon);
         }
@@ -107,7 +104,11 @@ public class Controlador {
             model.addAttribute("mensaje", mensaje);
             return "modificar";
         }
-      //  System.out.println(pokemon.getTipos());
+        catch (Exception e) {
+            String mensaje = "El pokemon ingresado ya existe";
+            model.addAttribute("mensaje", mensaje);
+            return "modificar";
+        }
         return "redirect:/";
     }
 
@@ -126,18 +127,14 @@ public class Controlador {
 
     @GetMapping("/evolucionar/{id}")
     public String evolucionar(Pokemon pokemon, Model model){
-        Pokemon evolucion = aplicacion.evolucionarPokemon(aplicacion.buscarPokemon(pokemon));
-
         try {
-            aplicacion.agregarPokemon(evolucion);
+            aplicacion.evolucionarPokemon(pokemon);
         }
         catch(IndexOutOfBoundsException e){
             String mensaje1 = "Este pokemon no se puede evolucionar más";
             model.addAttribute("mensaje1", mensaje1);
             return "redirect:/";
         }
-
-        aplicacion.eliminarPokemon(pokemon);
         return "redirect:/";
     }
 }

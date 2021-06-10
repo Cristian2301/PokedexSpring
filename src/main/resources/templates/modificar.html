@@ -28,6 +28,7 @@
         <br/>
         <label>Nivel:</label>
         <input type="text" name="nivel" th:field="*{nivel}"/>
+        <!--<span th:if="${#fields.hasErrors('nivel')}" >[[#{NotNull.pokemon.nivel}]]</span>-->
         <span th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}">Error Nivel</span>
         <br/>
         <br/>

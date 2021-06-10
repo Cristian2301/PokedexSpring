@@ -27,14 +27,49 @@ public class Aplicacion {
 		this.pokemonsValidos = new ArrayList<>();
 	}
 
-	public void agregarPokemon(Pokemon pokemon) {
-//		if (getPokemons().isEmpty()){
-			pokemon.setEvolucion(buscarPokemonValido(pokemon).getEvolucion());
+	public void agregarPokemon(Pokemon pokemon) throws Exception {
+		pokemon.setEvolucion(buscarPokemonValido(pokemon).getEvolucion());
+
+		if(existePokemonConMismoNombre(pokemon)){
+			throw new Exception();
+		}
+
+		if(esNombreDeEvolucion(pokemon)){
+			throw new Exception();
+		}
 
 		if (existePokemon(pokemon)){
-			eliminarPokemon(pokemon);
+			modificarPokemon(pokemon);
 		}
-		getPokemons().add(pokemon);
+		else{
+			getPokemons().add(pokemon);
+		}
+	}
+
+	public Boolean esNombreDeEvolucion(Pokemon pokemon){
+		Boolean nombreDeEvolucion = false;
+		for (Pokemon p: this.getPokemonsValidos()) {
+			nombreDeEvolucion = nombreDeEvolucion || p.getEvolucion().getNombre().equals(pokemon.getNombre());
+			System.out.println(p.getEvolucion().getNombre());
+		}
+		return nombreDeEvolucion;
+	}
+
+	public Boolean existePokemonConMismoNombre(Pokemon pokemon){
+		Boolean existePokemon = false;
+		for (Pokemon p: this.getPokemons()) {
+			existePokemon = existePokemon || p.getNombre().equals(pokemon.getNombre());
+		}
+		return existePokemon;
+	}
+
+	public void modificarPokemon(Pokemon pokemon){
+		Pokemon pokemonAEditar = buscarPokemon(pokemon);
+		pokemonAEditar.setNombre(pokemon.getNombre());
+		pokemonAEditar.setTipos(pokemon.getTipos());
+		pokemonAEditar.setNivel(pokemon.getNivel());
+		pokemonAEditar.setHabilidades(pokemon.getHabilidades());
+		pokemonAEditar.setEvolucion(pokemon.getEvolucion());
 	}
 
 	public void eliminarPokemon(Pokemon pokemon) {
@@ -57,10 +92,22 @@ public class Aplicacion {
 		return pokemons.get(i);
 	}
 
+	public void evolucionarPokemon(Pokemon pokemon){
+		Pokemon pokemonAEvolucionar = buscarPokemon(pokemon);
+		Pokemon evolucion = evolucionDePokemon(pokemonAEvolucionar);
 
-	public Pokemon evolucionarPokemon(Pokemon pokemon){
+		if(evolucion.getNombre() == null){
+			throw new IndexOutOfBoundsException();
+		}
+
+		getPokemons().add(getPokemons().indexOf(pokemonAEvolucionar), evolucion);
+		getPokemons().remove(pokemonAEvolucionar);
+	}
+
+	public Pokemon evolucionDePokemon(Pokemon pokemon){
 		return pokemon.getEvolucion();
 	}
+
 
 	public Pokemon buscarPokemonValido(Pokemon pokemon){
 		Integer i = 0;

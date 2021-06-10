@@ -10,6 +10,8 @@
     <a th:href="@{/agregar}">Crear Pokemon</a>
     <br/>
     <div th:if="${pokemons != null and !pokemons.empty}">
+        <span th:text="${mensaje1}"></span>
+        <br/>
         <table border="1">
             <tr>
                 <th>Nombre</th>
@@ -37,7 +39,6 @@
         </table>
         <br/>
         <br/>
-        <span th:text="${mensaje1}"></span>
     </div>
     <div th:if="${pokemons == null or pokemons.empty}">
         <p>Aún no se ha cargado ningún pokemon</p>
