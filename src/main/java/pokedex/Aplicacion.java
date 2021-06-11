@@ -3,17 +3,15 @@ package pokedex;
 import domain.Habilidad;
 import domain.Pokemon;
 import domain.Tipo;
+import excepciones.PokemonEsEvolucionExcepcion;
+import excepciones.PokemonExistenteExcepcion;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 
 import java.util.List;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.InputMismatchException;
 
 @Data
 @Component
@@ -27,16 +25,11 @@ public class Aplicacion {
 		this.pokemonsValidos = new ArrayList<>();
 	}
 
-	public void agregarPokemon(Pokemon pokemon) throws Exception {
+	public void agregarPokemon(Pokemon pokemon) {
 		pokemon.setEvolucion(buscarPokemonValido(pokemon).getEvolucion());
-
-		if(existePokemonConMismoNombre(pokemon)){
-			throw new Exception();
-		}
-
-		if(esNombreDeEvolucion(pokemon)){
-			throw new Exception();
-		}
+		//System.out.println(pokemon);
+//		validarPokemonConNombre(pokemon);
+//		validarPokemonEvolucion(pokemon);
 
 		if (existePokemon(pokemon)){
 			modificarPokemon(pokemon);
@@ -46,8 +39,17 @@ public class Aplicacion {
 		}
 	}
 
+/*	public void validarPokemonConNombre(Pokemon pokemon) throws PokemonExistenteExcepcion {
+		if(existePokemonConMismoNombre(pokemon)) throw new PokemonExistenteExcepcion();
+	}
+
+	public void validarPokemonEvolucion(Pokemon pokemon) throws PokemonEsEvolucionExcepcion {
+		if(esNombreDeEvolucion(pokemon)) throw new PokemonEsEvolucionExcepcion();
+	}
+
 	public Boolean esNombreDeEvolucion(Pokemon pokemon){
 		Boolean nombreDeEvolucion = false;
+		System.out.println(this.getPokemonsValidos());
 		for (Pokemon p: this.getPokemonsValidos()) {
 			nombreDeEvolucion = nombreDeEvolucion || p.getEvolucion().getNombre().equals(pokemon.getNombre());
 			System.out.println(p.getEvolucion().getNombre());
@@ -61,15 +63,19 @@ public class Aplicacion {
 			existePokemon = existePokemon || p.getNombre().equals(pokemon.getNombre());
 		}
 		return existePokemon;
-	}
+	}*/
 
 	public void modificarPokemon(Pokemon pokemon){
 		Pokemon pokemonAEditar = buscarPokemon(pokemon);
+		//System.out.println(pokemon.getEvolucion());
+	//	System.out.println(pokemonAEditar);
+	//	System.out.println(pokemonAEditar.getEvolucion());
 		pokemonAEditar.setNombre(pokemon.getNombre());
 		pokemonAEditar.setTipos(pokemon.getTipos());
 		pokemonAEditar.setNivel(pokemon.getNivel());
 		pokemonAEditar.setHabilidades(pokemon.getHabilidades());
 		pokemonAEditar.setEvolucion(pokemon.getEvolucion());
+		//System.out.println(pokemon.getEvolucion());
 	}
 
 	public void eliminarPokemon(Pokemon pokemon) {
@@ -96,6 +102,7 @@ public class Aplicacion {
 		Pokemon pokemonAEvolucionar = buscarPokemon(pokemon);
 		Pokemon evolucion = evolucionDePokemon(pokemonAEvolucionar);
 
+//		if(evolucion.getNombre().isEmpty() || evolucion.getNombre() == null){
 		if(evolucion.getNombre() == null){
 			throw new IndexOutOfBoundsException();
 		}
