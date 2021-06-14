@@ -36,12 +36,13 @@
             <input type="text" name="nombre" th:field="*{nombre}" autocomplete="*{nombre}" readonly />
         </div> -->
         <label>Tipos:</label> <br/>
-           <!-- <div th:if="${pokemon.existeTipo(Fuego)}">
+    <!--        <div th:each="tipo : ${pokemon.getTipos()}">   </div>
+            <div th:if="${pokemon.existeTipo(Fuego)}">
                 <input type="checkbox" name="tipos" value="Fuego" checked>Fuego
             </div>
             <div th:if="${!pokemon.existeTipo(Fuego)}">
                 <input type="checkbox" name="tipos" value="Fuego">Fuego
-            </div> -->
+            </div>-->
             <input type="checkbox" name="tipos" value="Fuego">Fuego
             <input type="checkbox" name="tipos" value="Agua">Agua
             <input type="checkbox" name="tipos" value="Planta">Planta

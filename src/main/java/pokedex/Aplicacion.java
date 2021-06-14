@@ -32,7 +32,8 @@ public class Aplicacion {
 
 		if (existePokemon(pokemon)) {
 			modificarPokemon(pokemon);
-		} else {
+		}
+		else {
 			validarPokemonConNombre(pokemon);
 			validarPokemonEvolucion(pokemon);
 			getPokemons().add(pokemon);
@@ -48,19 +49,13 @@ public class Aplicacion {
 	}
 
 	public Boolean esNombreDeEvolucion(Pokemon pokemon) {
-		Boolean nombreDeEvolucion = false;
-		for (Pokemon p : this.getPokemonsValidos()) {
-			nombreDeEvolucion = nombreDeEvolucion || p.getEvolucion().getNombre().equals(pokemon.getNombre());
-		}
-		return nombreDeEvolucion;
+		return this.pokemonsValidos.stream()
+				.anyMatch(poke -> pokemon.getNombre().equals(poke.getEvolucion().getNombre()));
 	}
 
 	public Boolean existePokemonConMismoNombre(Pokemon pokemon) {
-		Boolean existePokemon = false;
-		for (Pokemon p : this.getPokemons()) {
-			existePokemon = existePokemon || p.getNombre().equals(pokemon.getNombre());
-		}
-		return existePokemon;
+		return this.pokemons.stream()
+				.anyMatch(poke -> pokemon.getNombre().equals(poke.getNombre()));
 	}
 
 	public void modificarPokemon(Pokemon pokemon) {
@@ -80,11 +75,8 @@ public class Aplicacion {
 	}
 
 	public Boolean existePokemon(Pokemon pokemon) {
-		Boolean existePokemon = false;
-		for (Pokemon p : this.getPokemons()) {
-			existePokemon = existePokemon || p.getId().equals(pokemon.getId());
-		}
-		return existePokemon;
+		return this.pokemons.stream()
+				.anyMatch(poke -> pokemon.getId().equals(poke.getId()));
 	}
 
 	public Pokemon buscarPokemon(Pokemon pokemon) {
