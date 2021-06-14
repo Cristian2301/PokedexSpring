@@ -1,6 +1,5 @@
 package pokedex;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import domain.Habilidad;
 import domain.Pokemon;
 import domain.Tipo;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -58,11 +56,11 @@ public class Controlador {
         EvolucionCharmeleon.agregarHabilidad(Habilidad.MarLlamas);
         EvolucionCharmeleon.agregarHabilidad(Habilidad.RemolinoWhirlwind);
         EvolucionCharmeleon.agregarHabilidad(Habilidad.AlaDeAcero);
-    /*    EvolucionCharmeleon.getEvolucion().setNombre("");
+        EvolucionCharmeleon.getEvolucion().setNombre("");
         EvolucionCharmeleon.getEvolucion().setNivel(0);
         EvolucionCharmeleon.getEvolucion().setTipos(new ArrayList<>());
         EvolucionCharmeleon.getEvolucion().setHabilidades(new ArrayList<>());
-        EvolucionCharmeleon.getEvolucion().setEvolucion(null);*/
+        EvolucionCharmeleon.getEvolucion().setEvolucion(null);
 
 
         EvolucionBulbasaur.agregarTipo(Tipo.Planta);
@@ -73,13 +71,13 @@ public class Controlador {
         EvolucionIvysaur.agregarHabilidad(Habilidad.AbsorveRayosSol);
         EvolucionIvysaur.agregarHabilidad(Habilidad.DefensaHoja);
         EvolucionIvysaur.agregarHabilidad(Habilidad.PolvoVeneno);
-  /*      EvolucionIvysaur.getEvolucion().setNombre("");
+        EvolucionIvysaur.getEvolucion().setNombre("");
         EvolucionIvysaur.getEvolucion().setNivel(0);
         EvolucionIvysaur.getEvolucion().setTipos(new ArrayList<>());
         EvolucionIvysaur.getEvolucion().setHabilidades(new ArrayList<>());
-        EvolucionIvysaur.getEvolucion().setEvolucion(null);*/
+        EvolucionIvysaur.getEvolucion().setEvolucion(null);
 
-   /*     EvolucionChikorita.agregarTipo(Tipo.Planta);
+        EvolucionChikorita.agregarTipo(Tipo.Planta);
         EvolucionBayleef.agregarTipo(Tipo.Planta);
         EvolucionChikorita.agregarHabilidad(Habilidad.AbsorveRayosSol);
         EvolucionChikorita.agregarHabilidad(Habilidad.DefensaHoja);
@@ -125,21 +123,21 @@ public class Controlador {
         EvolucionPikachu.getEvolucion().setNivel(0);
         EvolucionPikachu.getEvolucion().setTipos(new ArrayList<>());
         EvolucionPikachu.getEvolucion().setHabilidades(new ArrayList<>());
-        EvolucionPikachu.getEvolucion().setEvolucion(null);*/
+        EvolucionPikachu.getEvolucion().setEvolucion(null);
 
 
         pokemon1.setEvolucion(EvolucionCharmander);
         EvolucionCharmander.setEvolucion(EvolucionCharmeleon);
         pokemon2.setEvolucion(EvolucionBulbasaur);
         EvolucionBulbasaur.setEvolucion(EvolucionIvysaur);
-   /*     pokemon3.setEvolucion(EvolucionChikorita);
+        pokemon3.setEvolucion(EvolucionChikorita);
         EvolucionChikorita.setEvolucion(EvolucionBayleef);
         pokemon4.setEvolucion(EvolucionSquirtle);
         EvolucionSquirtle.setEvolucion(EvolucionWartortle);
         pokemon5.setEvolucion(EvolucionCyndaquil);
         EvolucionCyndaquil.setEvolucion(EvolucionQuilava);
         pokemon6.setEvolucion(EvolucionPichu);
-        EvolucionPichu.setEvolucion(EvolucionPikachu);*/
+        EvolucionPichu.setEvolucion(EvolucionPikachu);
 
 
         //Se agregan los pokemons a la lista de pokemonsValidos
@@ -149,7 +147,7 @@ public class Controlador {
         aplicacion.getPokemonsValidos().add(pokemon2);
         aplicacion.getPokemonsValidos().add(EvolucionBulbasaur);
         aplicacion.getPokemonsValidos().add(EvolucionIvysaur);
-    /*    aplicacion.getPokemonsValidos().add(pokemon3);
+        aplicacion.getPokemonsValidos().add(pokemon3);
         aplicacion.getPokemonsValidos().add(EvolucionChikorita);
         aplicacion.getPokemonsValidos().add(EvolucionBayleef);
         aplicacion.getPokemonsValidos().add(pokemon4);
@@ -160,7 +158,7 @@ public class Controlador {
         aplicacion.getPokemonsValidos().add(EvolucionQuilava);
         aplicacion.getPokemonsValidos().add(pokemon6);
         aplicacion.getPokemonsValidos().add(EvolucionPichu);
-        aplicacion.getPokemonsValidos().add(EvolucionPikachu);*/
+        aplicacion.getPokemonsValidos().add(EvolucionPikachu);
     }
 
 
@@ -170,31 +168,31 @@ public class Controlador {
             crearPokemonsValidos();
         }
         List<Pokemon> pokemons = aplicacion.getPokemons();
-        System.out.println(pokemons);
         model.addAttribute("pokemons", pokemons);
         return "index";
     }
 
     @GetMapping("/agregar")
-    public String agregar(Pokemon pokemon){
+    public String agregar(Pokemon pokemon, Model model){
+        model.addAttribute("aplicacion", aplicacion);
         return "modificar";
     }
 
     @PostMapping("/guardar")
-    //@ExceptionHandler
     public String guardar(@Valid Pokemon pokemon, BindingResult resultadoBindeado, Model model){
+        model.addAttribute("aplicacion", aplicacion);
         if(resultadoBindeado.hasErrors()){
             return "modificar";
         }
         try {
             aplicacion.agregarPokemon(pokemon);
         }
-        catch(IndexOutOfBoundsException e){
+        catch(NullPointerException e){
             String mensaje = "El pokemon ingresado es invalido";
             model.addAttribute("mensaje", mensaje);
             return "modificar";
         }
-/*        catch (PokemonExistenteExcepcion e) {
+        catch (PokemonExistenteExcepcion e) {
             String mensaje = "El pokemon ingresado ya existe";
             model.addAttribute("mensaje", mensaje);
             return "modificar";
@@ -203,13 +201,14 @@ public class Controlador {
             String mensaje = "El pokemon ingresado no puede ser una evolucion";
             model.addAttribute("mensaje", mensaje);
             return "modificar";
-        }*/
+        }
         return "redirect:/";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(Pokemon pokemon, Model model){
         pokemon = aplicacion.buscarPokemon(pokemon);
+        model.addAttribute("aplicacion", aplicacion);
         model.addAttribute("pokemon", pokemon);
         return "modificar";
     }

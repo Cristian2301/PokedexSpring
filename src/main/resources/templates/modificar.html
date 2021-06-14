@@ -11,15 +11,40 @@
     <form th:action="@{/guardar}" method="post" th:object="${pokemon}">
         <input type="hidden" name="id" th:field="*{id}"/>
         <br/>
-        <label>Nombre:</label>
-        <input type="text" name="nombre" th:field="*{nombre}"/>
-        <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
-        <span th:text="${mensaje}"></span>
-        <br/>
-        <br/>
+        <div th:if="${!aplicacion.existePokemon(pokemon)}">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" th:field="*{nombre}"/>
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
+            <span th:text="${mensaje}"></span>
+            <br/>
+            <br/>
+        </div>
+        <div th:if="${aplicacion.existePokemon(pokemon)}">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" th:field="*{nombre}" autocomplete="*{nombre}" readonly />
+        </div>
+<!--        <div th:if="${pokemon.getNombre() == null or pokemon.getNombre().empty}">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" th:field="*{nombre}"/>
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
+            <span th:text="${mensaje}"></span>
+            <br/>
+            <br/>
+        </div>
+        <div th:if="${pokemon.getNombre() != null and !pokemon.getNombre().empty}">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" th:field="*{nombre}" autocomplete="*{nombre}" readonly />
+        </div> -->
         <label>Tipos:</label> <br/>
+           <!-- <div th:if="${pokemon.existeTipo(Fuego)}">
+                <input type="checkbox" name="tipos" value="Fuego" checked>Fuego
+            </div>
+            <div th:if="${!pokemon.existeTipo(Fuego)}">
+                <input type="checkbox" name="tipos" value="Fuego">Fuego
+            </div> -->
             <input type="checkbox" name="tipos" value="Fuego">Fuego
             <input type="checkbox" name="tipos" value="Agua">Agua
+            <input type="checkbox" name="tipos" value="Planta">Planta
             <input type="checkbox" name="tipos" value="Roca">Roca
             <input type="checkbox" name="tipos" value="Volador">Volador
             <input type="checkbox" name="tipos" value="Hielo">Hielo
@@ -35,13 +60,13 @@
         <br/>
         <br/>
         <label>Habilidades:</label> <br>
-        <!--<div th:if="${pokemon.existeTipo(Fuego)}">
+     <!--   <div th:if="${pokemon.existeTipo(Fuego)}">
             <input type="checkbox" name="habilidades" value="AbsorveFuego" checked>AbsorveFuego
             <input type="checkbox" name="habilidades" value="MarLlamas" checked>MarLlamas
         </div>
         <div th:if="${!pokemon.existeTipo(Fuego)}">
-        <input type="checkbox" name="habilidades" value="AbsorveFuego">AbsorveFuego
-        <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
+            <input type="checkbox" name="habilidades" value="AbsorveFuego">AbsorveFuego
+            <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
         </div>-->
             <input type="checkbox" name="habilidades" value="AbsorveFuego">AbsorveFuego
             <input type="checkbox" name="habilidades" value="MarLlamas">MarLlamas
